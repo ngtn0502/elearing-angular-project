@@ -1,0 +1,27 @@
+.header {
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+  background-color: #fff !important;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+  .navbar-collapse {
+    flex-grow: 0;
+  }
+  .header-search {
+    display: flex;
+    gap: 5rem;
+    &__form {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .btn-outline-warning {
+        white-space: nowrap;
+      }
+    }
+
+    &__img {
+      display: block;
+      height: 3rem;
+    }
+  }
+}

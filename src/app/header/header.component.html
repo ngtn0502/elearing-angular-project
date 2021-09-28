@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light header">
+  <div class="header-search">
+    <div class="d-flex">
+      <img
+        src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
+        alt=""
+        class="header-search__img"
+      />
+      <a class="navbar-brand" href="#">Fake</a>
+    </div>
+    <form class="form-inline header-search__form">
+      <input
+        class="form-control"
+        type="search"
+        placeholder="Search For Anything"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button
+        type="button"
+        class="btn btn-outline-warning"
+        (click)="onAddNewCourse()"
+      >
+        Add New Course
+      </button>
+    </form>
+  </div>
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item font-weight-bold">
+      <a class="nav-link font-weight-bold" href="#">My Account</a>
+    </li>
+  </ul>
+</nav>

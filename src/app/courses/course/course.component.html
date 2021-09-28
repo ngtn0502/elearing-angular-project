@@ -1,0 +1,20 @@
+<div class="course">
+  <img [src]="course.imageUrl" alt="" />
+  <div class="course-bottom">
+    <h3 class="course-name">
+      {{ course.name }}
+    </h3>
+    <p class="course-instr">{{ course.instructor }}</p>
+    <div class="course-info">
+      <p>${{ course.price }}</p>
+    </div>
+  </div>
+</div>
+<div class="course__change">
+  <button class="btn btn-outline-dark" (click)="onEditCourse(course.id)">
+    Edit
+  </button>
+  <button class="btn btn-outline-danger" (click)="onDeleteCourse(course.id)">
+    Delete
+  </button>
+</div>

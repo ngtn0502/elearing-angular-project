@@ -1,0 +1,94 @@
+<div class="edit">
+  <form class="edit__form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Course name: </label>
+      <input
+        id="name"
+        class="form-control"
+        type="text"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="desc">Course Description: </label>
+      <textarea
+        id="desc"
+        class="form-control"
+        type="text"
+        formControlName="desc"
+      ></textarea>
+    </div>
+    <div class="form-compo">
+      <div class="form-group">
+        <label for="rating">Course rating: </label>
+        <input
+          id="rating"
+          class="form-control"
+          type="text"
+          formControlName="rating"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price">Course price: </label>
+        <input
+          id="price"
+          class="form-control"
+          type="text"
+          formControlName="price"
+        />
+      </div>
+
+      <!--  -->
+      <div class="form-group edit__select">
+        <label for="category">Category: </label>
+        <select class="form-control" id="category" formControlName="categoryId">
+          <option [value]="category.id" *ngFor="let category of categories">
+            {{ category.name }}
+          </option>
+        </select>
+        <i for="category" class="bi bi-caret-down edit__select--icon"></i>
+      </div>
+    </div>
+    <!--  -->
+    <div class="form-group">
+      <label for="instructor">Course instructor: </label>
+      <input
+        id="instructor"
+        class="form-control"
+        type="text"
+        formControlName="instructor"
+      />
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">Course ImageUrl: </label>
+      <input
+        id="imageUrl"
+        class="form-control"
+        type="text"
+        formControlName="imageUrl"
+      />
+    </div>
+    <img [src]="editForm.value.imageUrl" alt="" class="edit__img" />
+    <div class="edit__button">
+      <button
+        *ngIf="typeModel !== 'new'"
+        type="submit"
+        class="btn btn-outline-dark"
+        [disabled]="editForm.invalid || !editForm.touched"
+      >
+        Edit
+      </button>
+      <button
+        *ngIf="typeModel === 'new'"
+        type="submit"
+        class="btn btn-outline-warning"
+        [disabled]="editForm.invalid || !editForm.touched"
+      >
+        Add Course
+      </button>
+      <button type="button" class="btn btn-outline-danger" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
