@@ -16,7 +16,7 @@ export class CategoryService {
         const newCategory = category.map((el) => {
           return { id: el.id, name: el.name };
         });
-        return newCategory;
+        return [{ id: 0, name: 'All Courses' }, ...newCategory];
       })
     );
   }

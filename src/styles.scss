@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
 $color-bg: rgb(248, 249, 250);
 $color-secondary: #6a6f73;
-
+$color-darkbg: #1c1d1f;
 * {
   margin: 0;
   padding: 0;
@@ -42,4 +42,50 @@ h4,
 h5 {
   padding: 0;
   margin: 0;
+}
+
+.container {
+  max-width: 1000px;
+}
+
+.btn-outline-danger {
+  color: #a435f0;
+  border-color: #a435f0;
+  &:hover {
+    color: #fff;
+    background: #a435f0;
+  }
+}
+
+.btn {
+  border-radius: 0;
+}
+
+.form-control {
+  border: 1px solid black;
+  &:focus {
+    border: 1px solid black;
+    box-shadow: none;
+  }
+}
+
+.dark-background {
+  background-color: $color-darkbg;
+}
+
+.badge-bestseller {
+  background-color: #eceb98;
+  color: #3d3c0a;
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.text-purple {
+  color: #a435f0;
+}
+.text-purple-light {
+  color: #cec0fc;
 }

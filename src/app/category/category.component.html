@@ -1,0 +1,18 @@
+<div class="subheader">
+  <h1>Web Development Courses</h1>
+  <p>
+    Learn web development and level up your competitiveness in the digital era.
+    We will give you a in-depth understanding of both front-end (HTML, CSS,
+    Javascript,...) and backend (.NET, NodeJS,..) development with business use
+    cases happening in Silicon Valley.
+  </p>
+  <div class="category">
+    <span
+      *ngFor="let category of categories"
+      (click)="onChooseCategory(category.id)"
+      [ngClass]="{ 'category--active': category.id === chosenID }"
+    >
+      {{ category.name }}
+    </span>
+  </div>
+</div>

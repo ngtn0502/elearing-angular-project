@@ -9,6 +9,16 @@ import { HeaderComponent } from './header/header.component';
 import { CourseComponent } from './courses/course/course.component';
 import { ModelDetailComponent } from './model-detail/model-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CategoryComponent } from './category/category.component';
+import { Route, RouterModule, Routes } from '@angular/router';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { FooterComponent } from './footer/footer.component';
+
+const appRoutes: Routes = [
+  { path: '', component: CoursesComponent, pathMatch: 'full' },
+  { path: 'home', component: CoursesComponent },
+  { path: 'products/:id', component: CourseDetailComponent },
+];
 
 @NgModule({
   declarations: [
@@ -17,12 +27,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     CourseComponent,
     ModelDetailComponent,
+    CategoryComponent,
+    CourseDetailComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
   bootstrap: [AppComponent],

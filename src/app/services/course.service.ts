@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Course } from '../shared/course.model';
 import { DataStorageService } from './data-storage.service';
 @Injectable({
@@ -6,25 +7,16 @@ import { DataStorageService } from './data-storage.service';
 })
 export class CourseService implements OnInit {
   courses: Course[] = [];
+  filteredCourses: Course[] = [];
+  courseChanged = new Subject<boolean>();
 
-  constructor(private dataStorageService: DataStorageService) {
-    // this.course = {
-    //   id: 0,
-    //   name: '',
-    //   desc: '',
-    //   rating: 0,
-    //   price: 0,
-    //   categoryid: 0,
-    //   imageUrl: '',
-    //   instructor: '',
-    //   productdetail: [],
-    // };
-  }
+  constructor() {}
 
-  ngOnInit() {
-    this.dataStorageService.fetchData().subscribe((data) => {
-      this.courses = data;
-    });
+  ngOnInit() {}
+
+  getCourses(courses: Course[]) {
+    this.courses = courses;
+    this.courseChanged.next();
   }
 
   getCourse(id: number): Course {

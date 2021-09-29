@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from './../services/data-storage.service';
 import { Course } from './../shared/course.model';
 import { UiServices } from './../services/ui.service';
+import { CourseService } from './../services/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -15,10 +16,12 @@ export class CoursesComponent implements OnInit {
   isModelOpen: boolean = false;
   deleteID: number = 0;
   modelType: string = '';
+  id: number = 0;
   //
   constructor(
     private dataStorageService: DataStorageService,
-    private uiServices: UiServices
+    private uiServices: UiServices,
+    private courseService: CourseService
   ) {
     this.course = {
       id: 0,
@@ -34,11 +37,14 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataStorageService.fetchDataByCategory(0);
     this.getCourseData();
 
-    this.dataStorageService.courseChanged.subscribe((data) => {
+    this.courseService.courseChanged.subscribe((data) => {
       this.getCourseData();
     });
+
+    // Handle popup model, Edit & Delete Course
 
     this.uiServices.modelId.subscribe((id) => {
       let editCourse = this.courses.find((el) => el.id === id);
@@ -60,15 +66,14 @@ export class CoursesComponent implements OnInit {
     this.isModelOpen = false;
   }
 
+  //
+
   onDeleteCourse() {
     this.dataStorageService.deleteData(this.deleteID);
     this.uiServices.closeModel();
   }
 
   getCourseData() {
-    this.dataStorageService.fetchData().subscribe((data) => {
-      this.courses = data;
-      console.log(data);
-    });
+    this.courses = this.courseService.courses;
   }
 }

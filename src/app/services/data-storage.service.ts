@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Data, Router } from '@angular/router';
 import { Course } from './../shared/course.model';
+import { CourseService } from './course.service';
 
 const apiURL = 'https://localhost:5001/api/products';
 
@@ -11,9 +12,11 @@ const apiURL = 'https://localhost:5001/api/products';
   providedIn: 'root',
 })
 export class DataStorageService {
-  courseChanged = new Subject<boolean>();
-
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private courseService: CourseService
+  ) {}
 
   //   postData() {
   //     this.http.put(apiURL, this.recipeService.getRecipe()).subscribe((data) => {
@@ -34,12 +37,31 @@ export class DataStorageService {
     console.log(newForm);
 
     this.http.post(apiURL, newForm).subscribe((data) => {
-      this.courseChanged.next();
+      this.fetchData();
     });
   }
 
   fetchData() {
-    return this.http.get<Course[]>(apiURL);
+    this.http.get<Course[]>(apiURL).subscribe((data) => {
+      this.courseService.getCourses(data);
+    });
+  }
+
+  fetchDataByCategory(id: number) {
+    if (id == 0) {
+      this.fetchData();
+    } else {
+      this.http
+        .get<Course[]>(`${apiURL}/category?id=${id}`)
+        .subscribe((data) => {
+          this.courseService.getCourses(data);
+          console.log(data);
+        });
+    }
+  }
+
+  fetchDataByID(id: number) {
+    return this.http.get<Course>(`${apiURL}/${id}`);
   }
 
   editData(form: any, id: number) {
@@ -57,14 +79,14 @@ export class DataStorageService {
       .put(`${apiURL}/edit?query=${id}`, updatedForm)
       .subscribe((data) => {
         console.log(data);
-        this.courseChanged.next();
+        this.fetchData();
       });
   }
 
   deleteData(id: number) {
     this.http.delete(`${apiURL}/${id}`).subscribe((data) => {
       console.log(data);
-      this.courseChanged.next();
+      this.fetchData();
     });
   }
 }

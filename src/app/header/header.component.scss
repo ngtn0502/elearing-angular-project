@@ -1,27 +1,84 @@
 .header {
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   align-items: center;
   background-color: #fff !important;
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
   .navbar-collapse {
     flex-grow: 0;
   }
+
+  &-logo {
+    cursor: pointer;
+  }
+
   .header-search {
     display: flex;
     gap: 5rem;
+    flex-basis: 80%;
+    position: relative;
+    .d-flex {
+      align-items: center;
+      a {
+        padding-bottom: 1rem;
+        font-size: 0.75rem;
+        color: black;
+      }
+    }
+
     &__form {
       display: flex;
       align-items: center;
       gap: 1rem;
-      .btn-outline-warning {
+      width: 50%;
+      .btn-outline-dark {
         white-space: nowrap;
+      }
+
+      input {
+        border-radius: 500px;
+      }
+      div {
+        display: flex;
+        width: 20rem;
+        border: 1px solid black;
+        height: 2.5rem;
+        border-radius: 500px;
+        align-items: center;
+        margin-right: 1rem;
+        input {
+          flex: 2;
+          outline: none;
+          border: none;
+        }
       }
     }
 
     &__img {
       display: block;
       height: 3rem;
+    }
+
+    &__btn {
+      outline: none;
+      border: none;
+      // position: absolute;
+      // top: 0.25rem;
+      // right: 40%;
+      font-size: 1.25rem;
+      border-radius: 500px;
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: inherit;
+        color: inherit;
+        box-shadow: none;
+      }
+      i {
+        &:hover {
+          color: #a435f0;
+        }
+      }
     }
   }
 }
