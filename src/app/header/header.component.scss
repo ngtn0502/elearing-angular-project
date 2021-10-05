@@ -81,4 +81,9 @@
       }
     }
   }
+
+  &__login {
+    display: flex;
+    gap: 1rem;
+  }
 }

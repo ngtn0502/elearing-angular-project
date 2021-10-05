@@ -24,15 +24,22 @@
         type="button"
         class="btn btn-outline-dark"
         (click)="onAddNewCourse()"
+        *ngIf="isOnEditPage"
       >
         Add New Course
       </button>
     </form>
   </div>
 
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item font-weight-bold">
-      <a class="nav-link font-weight-bold" href="#">My Account</a>
-    </li>
-  </ul>
+  <div class="header__login">
+    <button
+      [routerLink]="['/login']"
+      type="button"
+      class="btn btn-outline-dark"
+    >
+      Log in</button
+    ><button type="button" class="btn btn-outline-dark btn-dark2">
+      Sign up
+    </button>
+  </div>
 </nav>

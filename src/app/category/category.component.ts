@@ -3,6 +3,7 @@ import { DataStorageService } from '../services/data-storage.service';
 import { CategoryService } from './../services/category.service';
 import { Category } from './../shared/category.model';
 import { CourseService } from './../services/course.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -16,8 +17,18 @@ export class CategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private dataStorageService: DataStorageService,
-    private courseService: CourseService
-  ) {}
+    private courseService: CourseService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.params.subscribe((data) => {
+      if (!data.id) {
+        this.chosenID = 0;
+      } else {
+        this.chosenID = Number(data.id);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.categoryService.fetchData().subscribe((data) => {
@@ -28,6 +39,5 @@ export class CategoryComponent implements OnInit {
 
   onChooseCategory(id: number) {
     this.chosenID = id;
-    this.dataStorageService.fetchDataByCategory(id);
   }
 }

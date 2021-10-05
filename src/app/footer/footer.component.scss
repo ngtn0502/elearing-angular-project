@@ -15,12 +15,13 @@
   }
 
   &__teach {
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #3e4143;
     display: flex;
     justify-content: space-between;
     padding: 1rem 0rem;
     h3 {
       font-weight: 900;
+      font-size: 1.2rem;
     }
   }
 
@@ -35,4 +36,34 @@
       background-color: rgba(255, 255, 255, 0.08);
     }
   }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+
+    &-left {
+      display: flex;
+      gap: 5rem;
+      & > * {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        a {
+          color: #fff;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    &-right {
+    }
+  }
+}
+
+.margintop-5 {
+  margin-top: 25rem;
 }

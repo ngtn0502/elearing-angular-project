@@ -9,6 +9,7 @@
   <div class="category">
     <span
       *ngFor="let category of categories"
+      [routerLink]="['/category', category.id]"
       (click)="onChooseCategory(category.id)"
       [ngClass]="{ 'category--active': category.id === chosenID }"
     >

@@ -11,13 +11,16 @@ import { ModelDetailComponent } from './model-detail/model-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CategoryComponent } from './category/category.component';
 import { Route, RouterModule, Routes } from '@angular/router';
-import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { FooterComponent } from './footer/footer.component';
+import { CourseDetailComponent } from './course-detail-page/course-detail.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 const appRoutes: Routes = [
   { path: '', component: CoursesComponent, pathMatch: 'full' },
-  { path: 'home', component: CoursesComponent },
+  { path: 'course', component: CoursesComponent },
+  { path: 'category/:id', component: CoursesComponent },
   { path: 'products/:id', component: CourseDetailComponent },
+  { path: 'login', component: LoginPageComponent },
 ];
 
 @NgModule({
@@ -28,15 +31,16 @@ const appRoutes: Routes = [
     CourseComponent,
     ModelDetailComponent,
     CategoryComponent,
-    CourseDetailComponent,
     FooterComponent,
+    CourseDetailComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'enabled' }),
   ],
   providers: [],
   bootstrap: [AppComponent],

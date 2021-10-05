@@ -59,10 +59,20 @@ h5 {
 
 .btn {
   border-radius: 0;
+  font-weight: 900;
+}
+
+.btn-dark2 {
+  background-color: black;
+  color: #fff;
+  &:hover {
+    background-color: rgb(black, 0.9);
+  }
 }
 
 .form-control {
   border: 1px solid black;
+  border-radius: 2px;
   &:focus {
     border: 1px solid black;
     box-shadow: none;
@@ -88,4 +98,12 @@ h5 {
 }
 .text-purple-light {
   color: #cec0fc;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  &:hover {
+    color: inherit;
+  }
 }

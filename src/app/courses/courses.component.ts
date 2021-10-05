@@ -3,6 +3,7 @@ import { DataStorageService } from './../services/data-storage.service';
 import { Course } from './../shared/course.model';
 import { UiServices } from './../services/ui.service';
 import { CourseService } from './../services/course.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -21,7 +22,8 @@ export class CoursesComponent implements OnInit {
   constructor(
     private dataStorageService: DataStorageService,
     private uiServices: UiServices,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.course = {
       id: 0,
@@ -37,7 +39,13 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataStorageService.fetchDataByCategory(0);
+    this.activatedRoute.url.subscribe((data) => {
+      if (data.length !== 0 && data[0].path === 'category') {
+        this.dataStorageService.fetchDataByCategory(Number(data[1].path));
+      } else {
+        this.dataStorageService.fetchDataByCategory(0);
+      }
+    });
     this.getCourseData();
 
     this.courseService.courseChanged.subscribe((data) => {

@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoryService } from './../services/category.service';
 import { Category } from './../shared/category.model';
 import { DataStorageService } from '../services/data-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-model-detail',
@@ -20,7 +21,8 @@ export class ModelDetailComponent implements OnInit {
   constructor(
     private uiServices: UiServices,
     private categoryService: CategoryService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private router: Router
   ) {
     this.course = {
       id: 0,
@@ -78,6 +80,7 @@ export class ModelDetailComponent implements OnInit {
     if (this.typeModel === 'new') {
       this.dataStorageService.postData(this.editForm.value);
       this.uiServices.closeModel();
+      this.router.navigate(['/']);
     } else {
       this.dataStorageService.editData(this.editForm.value, this.course.id);
       this.uiServices.closeModel();

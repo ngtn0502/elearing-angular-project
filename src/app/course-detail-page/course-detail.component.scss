@@ -33,6 +33,9 @@
   &__languages {
     & > * {
       margin-right: 1rem;
+      i {
+        margin-right: 0.25rem;
+      }
     }
   }
 

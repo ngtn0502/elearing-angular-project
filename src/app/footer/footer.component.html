@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer" [ngClass]="{ 'margintop-5': isDetailPage }">
   <div class="footer__teach">
     <div>
       <h3>Teach the world online</h3>
@@ -8,6 +8,36 @@
       </p>
     </div>
     <button class="btn btn-outline-dark">Teach on Udemy</button>
+  </div>
+
+  <div class="footer__info">
+    <div class="footer__info-left">
+      <div>
+        <a href="">Udemy Business</a>
+        <a href="">Tech on Udemy</a>
+        <a href="">Get the app</a>
+        <a href="">About us</a>
+        <a href="">Contact us</a>
+      </div>
+      <div>
+        <a href="">Careers</a>
+        <a href="">Blog</a>
+        <a href="">Help and Support</a>
+        <a href="">Affilate</a>
+      </div>
+      <div>
+        <a href="">Terms</a>
+        <a href="">Privacy Policy</a>
+        <a href="">Cookie setting</a>
+        <a href="">Sitemap</a>
+      </div>
+    </div>
+    <div class="footer__info-right">
+      <button class="btn btn-outline-dark">
+        <i class="bi bi-globe"></i>
+        English
+      </button>
+    </div>
   </div>
 
   <div class="footer__cre">
