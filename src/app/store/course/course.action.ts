@@ -115,7 +115,7 @@ export class DeleteCoursesErrorAction implements Action {
 // Search Course
 export class SearchCoursesAction implements Action {
   readonly type = 'SEARCH_COURSE';
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 export class SearchCoursesSuccessAction implements Action {
   readonly type = 'SEARCH_COURSE_SUCCESS';

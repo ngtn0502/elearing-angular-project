@@ -80,6 +80,18 @@ export class CourseEffect {
   });
 
   // Search courses
+  searchCourses$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CourseActions.SEARCH_COURSE),
+      mergeMap((action: CourseActions.SearchCoursesAction) => {
+        return this.dataStorageService.searchCourse(action.payload).pipe(
+          map((courses) => {
+            return new CourseActions.SearchCoursesSuccessAction(courses);
+          })
+        );
+      })
+    );
+  });
 
   // Get Courses By Category
   getCoursesByCategory$ = createEffect(() => {

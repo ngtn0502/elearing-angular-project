@@ -72,7 +72,9 @@ export class DataStorageService {
     return this.http.delete(`${apiURL}/${id}`);
   }
 
-  //
+  searchCourse(query: any) {
+    return this.http.get(`${apiURL}/search?query=${query}`);
+  }
 
   // fetch category data
   fetchCategory() {

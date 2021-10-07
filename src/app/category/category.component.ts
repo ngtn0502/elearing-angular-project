@@ -34,18 +34,12 @@ export class CategoryComponent implements OnInit {
       }
     });
     this.activatedRoute.params.subscribe((params) => {
-      if (!params.id) {
-        this.chosenID = 0;
-        console.log(params.id);
-        this.store.dispatch(
-          new CourseActions.GetCoursesByCategoryAction(this.chosenID)
-        );
-      } else {
-        this.chosenID = Number(params.id);
-        this.store.dispatch(
-          new CourseActions.GetCoursesByCategoryAction(this.chosenID)
-        );
-      }
+      console.log(params.id);
+      if (!!params.id) return;
+      this.chosenID = Number(params.id || 0);
+      this.store.dispatch(
+        new CourseActions.GetCoursesByCategoryAction(this.chosenID)
+      );
     });
   }
 
