@@ -24,6 +24,7 @@
         <input
           id="rating"
           class="form-control"
+          [ngClass]="{ new: typeModel === 'new' }"
           type="text"
           formControlName="rating"
         />
@@ -33,6 +34,7 @@
         <input
           id="price"
           class="form-control"
+          [ngClass]="{ new: typeModel === 'new' }"
           type="text"
           formControlName="price"
         />
@@ -74,7 +76,7 @@
         *ngIf="typeModel !== 'new'"
         type="submit"
         class="btn btn-outline-dark"
-        [disabled]="editForm.invalid || !editForm.touched"
+        [disabled]="editForm.invalid || !editForm.dirty"
       >
         Edit
       </button>
@@ -82,7 +84,7 @@
         *ngIf="typeModel === 'new'"
         type="submit"
         class="btn btn-outline-dark"
-        [disabled]="editForm.invalid || !editForm.touched"
+        [disabled]="editForm.invalid || !editForm.dirty"
       >
         Add Course
       </button>

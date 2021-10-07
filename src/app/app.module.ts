@@ -14,10 +14,19 @@ import { Route, RouterModule, Routes } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { CourseDetailComponent } from './course-detail-page/course-detail.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { StoreModule } from '@ngrx/store';
+import { AppReducer } from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CourseEffect } from './store/course/course.effect';
+import { CategoryEffect } from './store/category/category.effect';
+import { ModalComponent } from './modal/modal.component';
+import { ToastComponent } from './toast/toast.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 const appRoutes: Routes = [
   { path: '', component: CoursesComponent, pathMatch: 'full' },
-  { path: 'course', component: CoursesComponent },
+  { path: 'course/search', component: CoursesComponent },
   { path: 'category/:id', component: CoursesComponent },
   { path: 'products/:id', component: CourseDetailComponent },
   { path: 'login', component: LoginPageComponent },
@@ -34,12 +43,21 @@ const appRoutes: Routes = [
     FooterComponent,
     CourseDetailComponent,
     LoginPageComponent,
+    ModalComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(AppReducer),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: false, // Pauses recording actions and state changes when the extension window is not open
+    }),
+    EffectsModule.forRoot([CourseEffect, CategoryEffect]),
     RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'enabled' }),
   ],
   providers: [],

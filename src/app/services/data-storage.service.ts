@@ -7,6 +7,7 @@ import { Course } from './../shared/course.model';
 import { CourseService } from './course.service';
 
 const apiURL = 'https://localhost:5001/api/products';
+const CategoryApiURL = 'https://localhost:5001/api/category';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +21,10 @@ export class DataStorageService {
 
   //   postData() {
   //     this.http.put(apiURL, this.recipeService.getRecipe()).subscribe((data) => {
-  //       //   console.log(data);
   //     });
   //   }
 
-  postData(form: any) {
+  postCourses(form: any) {
     let newForm = {
       Name: form.name,
       Description: form.desc,
@@ -34,37 +34,27 @@ export class DataStorageService {
       Instructor: form.instructor,
       CategoryId: form.categoryId,
     };
-    console.log(newForm);
 
-    this.http.post(apiURL, newForm).subscribe((data) => {
-      this.fetchData();
-    });
+    return this.http.post(apiURL, newForm);
   }
 
-  fetchData() {
-    this.http.get<Course[]>(apiURL).subscribe((data) => {
-      this.courseService.getCourses(data);
-    });
+  fetchCourses() {
+    return this.http.get<Course[]>(apiURL);
   }
 
-  fetchDataByCategory(id: number) {
+  fetchCoursesByCategory(id: number) {
     if (id == 0) {
-      this.fetchData();
+      return this.fetchCourses();
     } else {
-      this.http
-        .get<Course[]>(`${apiURL}/category?id=${id}`)
-        .subscribe((data) => {
-          this.courseService.getCourses(data);
-          console.log(data);
-        });
+      return this.http.get<Course[]>(`${apiURL}/category?id=${id}`);
     }
   }
 
-  fetchDataByID(id: number) {
+  fetchCourseByID(id: number) {
     return this.http.get<Course>(`${apiURL}/${id}`);
   }
 
-  editData(form: any, id: number) {
+  updateCourse(form: any, id: number) {
     let updatedForm = {
       Name: form.name,
       Description: form.desc,
@@ -75,18 +65,24 @@ export class DataStorageService {
       CategoryId: form.categoryId,
     };
 
-    this.http
-      .put(`${apiURL}/edit?query=${id}`, updatedForm)
-      .subscribe((data) => {
-        console.log(data);
-        this.fetchData();
-      });
+    return this.http.put(`${apiURL}/edit?query=${id}`, updatedForm);
   }
 
-  deleteData(id: number) {
-    this.http.delete(`${apiURL}/${id}`).subscribe((data) => {
-      console.log(data);
-      this.fetchData();
-    });
+  deleteCourse(id: number) {
+    return this.http.delete(`${apiURL}/${id}`);
+  }
+
+  //
+
+  // fetch category data
+  fetchCategory() {
+    return this.http.get<any[]>(CategoryApiURL).pipe(
+      map((category) => {
+        const newCategory = category.map((el) => {
+          return { id: el.id, name: el.name };
+        });
+        return [{ id: 0, name: 'All Courses' }, ...newCategory];
+      })
+    );
   }
 }

@@ -1,43 +1,9 @@
 <app-category></app-category>
 <section class="courses container mt-4">
-  <h2>Courses to get you started</h2>
+  <h2 *ngIf="!isSearch">Courses to get you started</h2>
+  <h2 *ngIf="isSearch">3 results for "{{ searchQuery }}"</h2>
   <div class="courses-list">
     <app-course *ngFor="let course of courses" [course]="course"></app-course>
   </div>
-
-  <!-- Model Popup -->
-
-  <div class="model" *ngIf="isModelOpen">
-    <button class="btn model__btn" (click)="onCloseModel()">
-      <i class="bi bi-x-circle"></i>
-    </button>
-    <!-- For Edit Course-->
-    <app-model-detail
-      [course]="course"
-      *ngIf="modelType == 'edit'"
-    ></app-model-detail>
-
-    <!-- For Delete Course-->
-    <div *ngIf="modelType == 'delete'">
-      <h3 class="font-weight-bold text-danger delete__text">
-        Are you sure to delete this course?
-      </h3>
-      <div class="delete__button">
-        <button class="btn btn-outline-danger" (click)="onDeleteCourse()">
-          Delete
-        </button>
-        <button class="btn btn-outline-dark" (click)="onCloseModel()">
-          Cancel
-        </button>
-      </div>
-    </div>
-
-    <!-- For Add New Course-->
-    <div *ngIf="modelType == 'new'">
-      <app-model-detail [typeModel]="'new'"></app-model-detail>
-    </div>
-    <!--  -->
-  </div>
-  <div class="overlay" *ngIf="isModelOpen" (click)="onCloseModel()"></div>
 </section>
 <app-footer></app-footer>

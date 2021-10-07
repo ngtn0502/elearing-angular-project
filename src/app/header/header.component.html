@@ -8,7 +8,11 @@
       />
       <a class="navbar-brand">Fake Version</a>
     </div>
-    <form class="form-inline header-search__form">
+    <form
+      class="form-inline header-search__form"
+      [formGroup]="searchForm"
+      (submit)="onSearchCourses()"
+    >
       <div>
         <button class="btn btn-outline-dark header-search__btn" type="submit">
           <i class="bi bi-search"></i>
@@ -16,8 +20,8 @@
         <input
           class="form-control"
           type="search"
+          formControlName="search"
           placeholder="Search For Anything"
-          aria-label="Search"
         />
       </div>
       <button

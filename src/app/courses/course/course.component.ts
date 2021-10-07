@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from './../../shared/course.model';
+import { Course, CourseObj } from './../../shared/course.model';
 import { UiServices } from './../../services/ui.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from './../../store/app.reducer';
+import * as UIActions from 'src/app/store/ui/ui.action';
 
 @Component({
   selector: 'app-course',
@@ -10,31 +13,24 @@ import { UiServices } from './../../services/ui.service';
 export class CourseComponent implements OnInit {
   @Input() course: Course;
 
-  constructor(private uiServices: UiServices) {
-    this.course = {
-      id: 0,
-      name: '',
-      description: '',
-      rating: 0,
-      price: 0,
-      categoryId: 0,
-      imageUrl: '',
-      instructor: '',
-      productdetail: [],
-    };
+  constructor(
+    private uiServices: UiServices,
+    private store: Store<fromApp.AppState>
+  ) {
+    this.course = CourseObj;
   }
 
   ngOnInit(): void {}
 
   onEditCourse(id: number) {
-    this.uiServices.modelId.next(id);
-    this.uiServices.openModel('edit');
+    this.store.dispatch(
+      new UIActions.OpenModelAction({ type: 'edit', id: id })
+    );
   }
 
   onDeleteCourse(id: number) {
-    this.uiServices.modelId.next(id);
-    console.log(id);
-
-    this.uiServices.openModel('delete');
+    this.store.dispatch(
+      new UIActions.OpenModelAction({ type: 'delete', id: id })
+    );
   }
 }

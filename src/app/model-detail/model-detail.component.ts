@@ -1,11 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from './../shared/course.model';
+import { Course, CourseObj } from './../shared/course.model';
 import { UiServices } from './../services/ui.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CategoryService } from './../services/category.service';
 import { Category } from './../shared/category.model';
 import { DataStorageService } from '../services/data-storage.service';
 import { Router } from '@angular/router';
+import * as fromApp from '../store/app.reducer';
+import * as UIActions from '../store/ui/ui.action';
+import { Store } from '@ngrx/store';
+import * as CourseActions from '../store/course/course.action';
 
 @Component({
   selector: 'app-model-detail',
@@ -13,31 +17,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./model-detail.component.scss'],
 })
 export class ModelDetailComponent implements OnInit {
-  @Input() course: Course;
+  course: Course;
   editForm: FormGroup = new FormGroup({});
   isFormValid: boolean = false;
   categories: Category[] = [];
-  @Input() typeModel: string = '';
+  typeModel: string = '';
   constructor(
-    private uiServices: UiServices,
-    private categoryService: CategoryService,
     private dataStorageService: DataStorageService,
-    private router: Router
+    private store: Store<fromApp.AppState>
   ) {
-    this.course = {
-      id: 0,
-      name: '',
-      description: '',
-      rating: 0,
-      price: 0,
-      categoryId: 1,
-      imageUrl: '',
-      instructor: '',
-      productdetail: [],
-    };
+    this.course = CourseObj;
   }
 
   ngOnInit(): void {
+    this.store.select('categories').subscribe((categoryState) => {
+      this.categories = categoryState.categories.filter((el) => el.id !== 0);
+    });
+    this.store.select('ui').subscribe((UIState) => {
+      this.typeModel = UIState.modelType;
+      this.store.select('courses').subscribe((coursesState) => {
+        const course = coursesState.courses.find((el) => el.id === UIState.id);
+        if (!!course) {
+          this.course = course;
+        }
+      });
+    });
+
     this.editForm = new FormGroup({
       name: new FormControl(this.course.name, [
         Validators.required,
@@ -55,9 +60,10 @@ export class ModelDetailComponent implements OnInit {
         Validators.required,
         Validators.minLength(2),
       ]),
-      categoryId: new FormControl(this.course.categoryId, [
-        Validators.required,
-      ]),
+      categoryId: new FormControl(
+        this.typeModel !== 'new' ? this.course.categoryId : null,
+        [Validators.required]
+      ),
       imageUrl: new FormControl(this.course.imageUrl, [
         Validators.required,
         Validators.minLength(5),
@@ -67,23 +73,32 @@ export class ModelDetailComponent implements OnInit {
         Validators.minLength(3),
       ]),
     });
-    this.categoryService.fetchData().subscribe((data) => {
-      this.categories = data;
-    });
   }
 
   onCancel() {
-    this.uiServices.closeModel();
+    this.store.dispatch(new UIActions.CloseModelAction());
   }
 
   onSubmit() {
     if (this.typeModel === 'new') {
-      this.dataStorageService.postData(this.editForm.value);
-      this.uiServices.closeModel();
-      this.router.navigate(['/']);
+      this.store.dispatch(
+        new CourseActions.CreateCoursesAction(this.editForm.value)
+      );
+      this.store.dispatch(new UIActions.CloseModelAction());
+      this.store.dispatch(
+        new UIActions.ShowToastAction('Create New Course Successfully')
+      );
     } else {
-      this.dataStorageService.editData(this.editForm.value, this.course.id);
-      this.uiServices.closeModel();
+      this.store.dispatch(
+        new CourseActions.UpdateCoursesAction({
+          course: this.editForm.value,
+          id: this.course.id,
+        })
+      );
+      this.store.dispatch(new UIActions.CloseModelAction());
+      this.store.dispatch(
+        new UIActions.ShowToastAction('Edit Course Successfully')
+      );
     }
   }
 }

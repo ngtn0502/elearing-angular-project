@@ -7,7 +7,7 @@ export class Course {
   public categoryId: number;
   public imageUrl: string;
   public instructor: string;
-  public productdetail: any[];
+  public productDetail: any[];
   constructor(
     id: number,
     name: string,
@@ -17,7 +17,7 @@ export class Course {
     categoryId: number,
     imageUrl: string,
     instructor: string,
-    productdetail: any[]
+    productDetail: any[]
   ) {
     this.id = id;
     this.name = name;
@@ -27,6 +27,8 @@ export class Course {
     this.categoryId = categoryId;
     this.imageUrl = imageUrl;
     this.instructor = instructor;
-    this.productdetail = productdetail;
+    this.productDetail = productDetail;
   }
 }
+
+export const CourseObj = new Course(0, '', '', 0, 0, 0, '', '', []);

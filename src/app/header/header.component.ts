@@ -7,6 +7,11 @@ import {
   Router,
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import * as fromApp from '../store/app.reducer';
+import * as UIActions from '../store/ui/ui.action';
+import { Store } from '@ngrx/store';
+import * as CourseActions from '../store/course/course.action';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -15,12 +20,9 @@ import { filter } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   isOnEditPage: boolean = true;
+  searchForm: FormGroup = new FormGroup({});
 
-  constructor(
-    private uiServices: UiServices,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private router: Router, private store: Store<fromApp.AppState>) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (event.url.includes('products')) {
@@ -30,15 +32,21 @@ export class HeaderComponent implements OnInit {
         }
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.activatedRoute.url.subscribe((data) => {
-      console.log(data);
+    this.searchForm = new FormGroup({
+      search: new FormControl('', [Validators.required]),
     });
   }
 
+  ngOnInit(): void {}
+
   onAddNewCourse() {
-    this.uiServices.openModel('new');
+    this.store.dispatch(new UIActions.OpenModelAction({ type: 'new', id: 0 }));
+  }
+
+  onSearchCourses() {
+    const query = this.searchForm.value.search;
+    this.router.navigate(['/course', 'search'], {
+      queryParams: { query: query },
+    });
   }
 }
