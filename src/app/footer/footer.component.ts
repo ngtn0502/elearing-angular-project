@@ -10,9 +10,5 @@ export class FooterComponent implements OnInit {
   isDetailPage: boolean = false;
   constructor(private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      this.isDetailPage = !!params.id;
-    });
-  }
+  ngOnInit(): void {}
 }

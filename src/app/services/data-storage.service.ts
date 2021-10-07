@@ -73,7 +73,9 @@ export class DataStorageService {
   }
 
   searchCourse(query: any) {
-    return this.http.get(`${apiURL}/search?query=${query}`);
+    const searchQuery = query.replace(/ /g, '');
+
+    return this.http.get(`${apiURL}/search?query=${searchQuery}`);
   }
 
   // fetch category data

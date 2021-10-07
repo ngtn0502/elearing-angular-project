@@ -1,12 +1,19 @@
-<app-category></app-category>
 <section class="courses container mt-4">
-  <h2 *ngIf="!isSearch">Courses to get you started</h2>
-  <h2 *ngIf="isSearch">
+  <h2 *ngIf="!isSearch && searchResultLLength !== 0">
+    Courses to get you started
+  </h2>
+  <h2 *ngIf="isSearch && searchResultLLength !== 0">
     {{ searchResultLLength }}
     {{ searchResultLLength > 1 ? "courses" : "course" }} for "{{ searchQuery }}"
   </h2>
-  <div class="courses-list">
+  <h2 *ngIf="searchResultLLength === 0">There are no available course now!</h2>
+  <div class="courses-list" *ngIf="searchResultLLength !== 0">
     <app-course *ngFor="let course of courses" [course]="course"></app-course>
   </div>
+  <div *ngIf="searchResultLLength === 0" class="courses__available">
+    <img
+      src="https://i.insider.com/5b0d4c731ae6622f008b4f81?width=700"
+      alt=""
+    />
+  </div>
 </section>
-<app-footer></app-footer>

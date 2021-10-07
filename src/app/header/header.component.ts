@@ -21,6 +21,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class HeaderComponent implements OnInit {
   isOnEditPage: boolean = true;
   searchForm: FormGroup = new FormGroup({});
+  isValid: boolean = true;
 
   constructor(private router: Router, private store: Store<fromApp.AppState>) {
     this.router.events.subscribe((event) => {
@@ -33,7 +34,10 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.searchForm = new FormGroup({
-      search: new FormControl('', [Validators.required]),
+      search: new FormControl('', [
+        Validators.required,
+        this.noWhitespaceValidator,
+      ]),
     });
   }
 
@@ -44,9 +48,25 @@ export class HeaderComponent implements OnInit {
   }
 
   onSearchCourses() {
+    // Handle empty input searching
+    if (!this.searchForm.valid) {
+      this.isValid = false;
+      this.searchForm.reset();
+      setTimeout(() => {
+        this.isValid = true;
+      }, 3000);
+      return;
+    }
+
     const query = this.searchForm.value.search;
     this.router.navigate(['/course', 'search'], {
       queryParams: { query: query },
     });
+  }
+
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { whitespace: true };
   }
 }

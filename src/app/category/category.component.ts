@@ -27,15 +27,7 @@ export class CategoryComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private store: Store<fromApp.AppState>
   ) {
-    this.activatedRoute.url.subscribe((url) => {
-      if (!url[1]) return;
-      if (url[1].path === 'search') {
-        this.isShowCategory = false;
-      }
-    });
     this.activatedRoute.params.subscribe((params) => {
-      console.log(params.id);
-      if (!!params.id) return;
       this.chosenID = Number(params.id || 0);
       this.store.dispatch(
         new CourseActions.GetCoursesByCategoryAction(this.chosenID)
@@ -54,5 +46,6 @@ export class CategoryComponent implements OnInit {
 
   onChooseCategory(id: number) {
     this.chosenID = id;
+    new CourseActions.GetCoursesByCategoryAction(this.chosenID);
   }
 }

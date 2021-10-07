@@ -23,11 +23,13 @@ import { ModalComponent } from './modal/modal.component';
 import { ToastComponent } from './toast/toast.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { HomepageComponent } from './homepage/homepage.component';
+import { SearchpageComponent } from './searchpage/searchpage.component';
 
 const appRoutes: Routes = [
-  { path: '', component: CoursesComponent, pathMatch: 'full' },
+  { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'course/search', component: CoursesComponent },
-  { path: 'category/:id', component: CoursesComponent },
+  { path: 'category/:id', component: HomepageComponent },
   { path: 'products/:id', component: CourseDetailComponent },
   { path: 'login', component: LoginPageComponent },
 ];
@@ -45,6 +47,8 @@ const appRoutes: Routes = [
     LoginPageComponent,
     ModalComponent,
     ToastComponent,
+    HomepageComponent,
+    SearchpageComponent,
   ],
   imports: [
     BrowserModule,

@@ -46,7 +46,6 @@ export class CoursesComponent implements OnInit {
         });
       }
     });
-    console.log(this.courses, 'first');
 
     if (this.courses === null) {
       this.getCoursesFromState();
@@ -61,7 +60,6 @@ export class CoursesComponent implements OnInit {
     this.store.select('courses').subscribe((coursesState) => {
       this.courses = coursesState.courses;
       this.searchResultLLength = coursesState.courses.length;
-      console.log(this.courses, 'second');
     });
   }
 }
