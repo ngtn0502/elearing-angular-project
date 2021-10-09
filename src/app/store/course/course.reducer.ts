@@ -1,17 +1,20 @@
-import { of } from 'rxjs';
-import { Course, CourseObj } from '../../shared/course.model';
+import { Course, CourseObj } from '../../core/shared/course.model';
 import * as CourseActions from './course.action';
 
 export interface State {
   isError: boolean;
   courses: Course[];
   course: Course;
+  totalRecords: number;
+  pageNumber: number;
 }
 
 const initialState: State = {
   isError: false,
   courses: [],
   course: CourseObj,
+  totalRecords: 0,
+  pageNumber: 1,
 };
 
 export function CourseReducer(
@@ -22,6 +25,7 @@ export function CourseReducer(
     return {
       ...state,
       courses: [...action.payload],
+      totalRecords: action.payload.length,
     };
   }
 
@@ -33,15 +37,18 @@ export function CourseReducer(
   }
 
   if (action.type === CourseActions.GET_COURSES_BY_CATEGORY_SUCCESS) {
-    if (action.payload.length === 0) {
+    if (action.payload.products.length === 0) {
       return {
         ...state,
         courses: [],
+        totalRecords: 0,
       };
     }
     return {
       ...state,
-      courses: [...action.payload],
+      courses: [...action.payload.products],
+      totalRecords: action.payload.totalRecords,
+      pageNumber: action.payload.pageNumber,
     };
   }
 
@@ -78,6 +85,15 @@ export function CourseReducer(
     return {
       ...state,
       courses: [...action.payload],
+    };
+  }
+
+  if (action.type === CourseActions.PAGINATION_COURSE_SUCCESS) {
+    return {
+      ...state,
+      courses: [...action.payload.products],
+      totalRecords: action.payload.totalRecords,
+      pageNumber: action.payload.pageNumber,
     };
   }
 

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Category } from './../../shared/category.model';
+import { Category } from './../../core/shared/category.model';
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const GET_CATEGORY_SUCCESS = 'GET_CATEGORY_SUCCESS';
 export const GET_CATEGORY_ERROR = 'GET_CATEGORY_ERROR';

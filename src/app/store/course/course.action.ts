@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Course } from '../../shared/course.model';
+import { Course } from '../../core/shared/course.model';
 
 export const GET_COURSES = 'GET_COURSES';
 export const GET_COURSES_SUCCESS = 'GET_COURSES_SUCCESS';
@@ -36,6 +36,11 @@ export const SEARCH_COURSE = 'SEARCH_COURSE';
 export const SEARCH_COURSE_SUCCESS = 'SEARCH_COURSE_SUCCESS';
 export const SEARCH_COURSE_ERROR = 'SEARCH_COURSE_ERROR';
 
+// Pagination
+export const PAGINATION_COURSE = 'PAGINATION_COURSE';
+export const PAGINATION_COURSE_SUCCESS = 'PAGINATION_COURSE_SUCCESS';
+export const PAGINATION_COURSE_ERROR = 'PAGINATION_COURSE_ERROR';
+
 export class GetCoursesAction implements Action {
   readonly type = 'GET_COURSES';
 }
@@ -67,7 +72,7 @@ export class GetCoursesByCategoryAction implements Action {
 }
 export class GetCoursesByCategorySuccessAction implements Action {
   readonly type = 'GET_COURSES_BY_CATEGORY_SUCCESS';
-  constructor(public payload: Course[]) {}
+  constructor(public payload: any) {}
 }
 export class GetCoursesByCategoryErrorAction implements Action {
   readonly type = 'GET_COURSES_BY_CATEGORY_ERROR';
@@ -125,6 +130,21 @@ export class SearchCoursesErrorAction implements Action {
   readonly type = 'SEARCH_COURSE_ERROR';
 }
 
+// Pagination
+export class PaginationCoursesAction implements Action {
+  readonly type = 'PAGINATION_COURSE';
+  constructor(
+    public payload: { id: number; pageSize: number; pageNumber: number }
+  ) {}
+}
+export class PaginationCoursesSuccessAction implements Action {
+  readonly type = 'PAGINATION_COURSE_SUCCESS';
+  constructor(public payload: any) {}
+}
+export class PaginationCoursesErrorAction implements Action {
+  readonly type = 'PAGINATION_COURSE_ERROR';
+}
+
 export type CourseActions =
   | GetCoursesAction
   | GetCoursesSuccessAction
@@ -146,4 +166,7 @@ export type CourseActions =
   | DeleteCoursesErrorAction
   | SearchCoursesAction
   | SearchCoursesSuccessAction
-  | SearchCoursesErrorAction;
+  | SearchCoursesErrorAction
+  | PaginationCoursesAction
+  | PaginationCoursesSuccessAction
+  | PaginationCoursesErrorAction;

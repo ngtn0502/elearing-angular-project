@@ -1,21 +1,21 @@
 import { Action } from '@ngrx/store';
-export const OPEN_MODEL = 'OPEN_MODEL';
-export const CLOSE_MODEL = 'CLOSE_MODEL';
+export const OPEN_MODAL = 'OPEN_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const SHOW_TOAST = 'SHOW_TOAST';
 export const CLOSE_TOAST = 'CLOSE_TOAST';
 
-interface openModelPayload {
+interface openModalPayload {
   type: string;
   id: number;
 }
 
-export class OpenModelAction implements Action {
-  readonly type = 'OPEN_MODEL';
-  constructor(public payload: openModelPayload) {}
+export class OpenModalAction implements Action {
+  readonly type = 'OPEN_MODAL';
+  constructor(public payload: openModalPayload) {}
 }
 
-export class CloseModelAction implements Action {
-  readonly type = 'CLOSE_MODEL';
+export class CloseModalAction implements Action {
+  readonly type = 'CLOSE_MODAL';
 }
 
 export class ShowToastAction implements Action {
@@ -28,7 +28,7 @@ export class CloseToastAction implements Action {
 }
 
 export type UIActions =
-  | OpenModelAction
-  | CloseModelAction
+  | OpenModalAction
+  | CloseModalAction
   | ShowToastAction
   | CloseToastAction;

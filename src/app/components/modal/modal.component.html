@@ -1,0 +1,31 @@
+<!-- Model Popup -->
+
+<div class="model" *ngIf="isModalOpen">
+  <button class="btn model__btn" (click)="onCloseModel()">
+    <i class="bi bi-x"></i>
+  </button>
+  <!-- For Edit Course-->
+  <app-modal-detail *ngIf="modalType == 'edit'"></app-modal-detail>
+
+  <!-- For Delete Course-->
+  <div *ngIf="modalType == 'delete'">
+    <h3 class="font-weight-bold text-danger delete__text">
+      Are you sure to delete this course?
+    </h3>
+    <div class="delete__button">
+      <button class="btn btn-outline-danger" (click)="onDeleteCourse()">
+        Delete
+      </button>
+      <button class="btn btn-outline-dark" (click)="onCloseModel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- For Add New Course-->
+  <div *ngIf="modalType == 'new'">
+    <app-modal-detail></app-modal-detail>
+  </div>
+  <!--  -->
+</div>
+<div class="overlay" *ngIf="isModalOpen" (click)="onCloseModel()"></div>

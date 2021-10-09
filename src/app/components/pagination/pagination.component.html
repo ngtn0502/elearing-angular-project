@@ -1,0 +1,30 @@
+<div class="container" *ngIf="totalPage > 1">
+  <div class="pagination">
+    <ul class="pagination-2">
+      <button
+        class="prev"
+        (click)="onNavigatePage('prev')"
+        [disabled]="currentPage === 1"
+        [ngClass]="{ disabled: currentPage === 1 }"
+      >
+        <i class="bi bi-caret-left-fill"></i>
+      </button>
+      <li
+        class="page-number"
+        [ngClass]="{ active: el === currentPage }"
+        *ngFor="let el of pageArray"
+        (click)="onChangePage(el)"
+      >
+        {{ el }}
+      </li>
+      <button
+        class="prev"
+        (click)="onNavigatePage('next')"
+        [disabled]="currentPage === totalPage"
+        [ngClass]="{ disabled: currentPage === totalPage }"
+      >
+        <i class="bi bi-caret-right-fill"></i>
+      </button>
+    </ul>
+  </div>
+</div>

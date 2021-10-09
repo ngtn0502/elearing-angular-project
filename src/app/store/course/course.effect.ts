@@ -1,9 +1,8 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { DataStorageService } from '../../services/data-storage.service';
+import { DataStorageService } from '../../core/services/data-storage.service';
 import * as CourseActions from './course.action';
 import { mergeMap, map } from 'rxjs/operators';
-import { Course } from '../../shared/course.model';
 
 @Injectable()
 export class CourseEffect {
@@ -93,6 +92,28 @@ export class CourseEffect {
     );
   });
 
+  // For paging
+  // Get courses by page
+  getCoursesByPage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(CourseActions.PAGINATION_COURSE),
+      mergeMap((action: CourseActions.PaginationCoursesAction) => {
+        return this.dataStorageService
+          .fetchCoursesByPage(
+            action.payload.id,
+            action.payload.pageNumber,
+            action.payload.pageSize
+          )
+          .pipe(
+            map((data) => {
+              return new CourseActions.PaginationCoursesSuccessAction(data);
+            })
+          );
+      })
+    );
+  });
+
+  //For filtering
   // Get Courses By Category
   getCoursesByCategory$ = createEffect(() => {
     return this.actions$.pipe(

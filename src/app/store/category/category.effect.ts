@@ -1,6 +1,6 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { DataStorageService } from '../../services/data-storage.service';
+import { DataStorageService } from '../../core/services/data-storage.service';
 import { mergeMap, map } from 'rxjs/operators';
 import * as CategoryActions from '../category/category.action';
 

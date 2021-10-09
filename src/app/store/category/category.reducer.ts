@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
-import { Course, CourseObj } from '../../shared/course.model';
+import { Course, CourseObj } from '../../core/shared/course.model';
 import * as CategoryActions from './category.action';
-import { Category } from './../../shared/category.model';
+import { Category } from './../../core/shared/category.model';
 
 export interface State {
   isError: boolean;

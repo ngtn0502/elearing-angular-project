@@ -4,31 +4,33 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoursesComponent } from './courses/courses.component';
-import { HeaderComponent } from './header/header.component';
-import { CourseComponent } from './courses/course/course.component';
-import { ModelDetailComponent } from './model-detail/model-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CategoryComponent } from './category/category.component';
+import { CategoryComponent } from './components/category/category.component';
 import { Route, RouterModule, Routes } from '@angular/router';
-import { FooterComponent } from './footer/footer.component';
-import { CourseDetailComponent } from './course-detail-page/course-detail.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { StoreModule } from '@ngrx/store';
 import { AppReducer } from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CourseEffect } from './store/course/course.effect';
 import { CategoryEffect } from './store/category/category.effect';
-import { ModalComponent } from './modal/modal.component';
-import { ToastComponent } from './toast/toast.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { HomepageComponent } from './homepage/homepage.component';
-import { SearchpageComponent } from './searchpage/searchpage.component';
+import { CoursesComponent } from './components/courses/courses.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CourseComponent } from './components/courses/course/course.component';
+import { ModalDetailComponent } from './components/modal-detail/modal-detail.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CourseDetailComponent } from './page/course-detail-page/course-detail.component';
+import { LoginPageComponent } from './page/login-page/login-page.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { HomepageComponent } from './page/home-page/homepage.component';
+import { SearchpageComponent } from './page/search-page/searchpage.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'course/search', component: CoursesComponent },
+  { path: 'course/page', component: HomepageComponent },
   { path: 'category/:id', component: HomepageComponent },
   { path: 'products/:id', component: CourseDetailComponent },
   { path: 'login', component: LoginPageComponent },
@@ -40,7 +42,7 @@ const appRoutes: Routes = [
     CoursesComponent,
     HeaderComponent,
     CourseComponent,
-    ModelDetailComponent,
+    ModalDetailComponent,
     CategoryComponent,
     FooterComponent,
     CourseDetailComponent,
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     ToastComponent,
     HomepageComponent,
     SearchpageComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

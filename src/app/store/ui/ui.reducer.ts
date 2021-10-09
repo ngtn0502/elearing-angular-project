@@ -1,8 +1,8 @@
 import * as UIActions from './ui.action';
 
 export interface State {
-  isModelOpen: boolean;
-  modelType: string;
+  isModalOpen: boolean;
+  modalType: string;
   id: number;
   //
   isToastShow: boolean;
@@ -10,8 +10,8 @@ export interface State {
 }
 
 const initialState: State = {
-  isModelOpen: false,
-  modelType: '',
+  isModalOpen: false,
+  modalType: '',
   id: 0,
   //
   isToastShow: false,
@@ -22,20 +22,20 @@ export function CourseReducer(
   state = initialState,
   action: UIActions.UIActions
 ) {
-  if (action.type === UIActions.OPEN_MODEL) {
+  if (action.type === UIActions.OPEN_MODAL) {
     return {
       ...state,
-      isModelOpen: true,
-      modelType: action.payload.type,
+      isModalOpen: true,
+      modalType: action.payload.type,
       id: action.payload.id,
       isToastShow: false,
     };
   }
 
-  if (action.type === UIActions.CLOSE_MODEL) {
+  if (action.type === UIActions.CLOSE_MODAL) {
     return {
       ...state,
-      isModelOpen: false,
+      isModalOpen: false,
       isToastShow: false,
     };
   }
