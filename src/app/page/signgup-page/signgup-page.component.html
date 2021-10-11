@@ -1,0 +1,69 @@
+<div class="signup__container">
+  <div class="container__child signup__thumbnail">
+    <div class="thumbnail__logo">
+      <a [routerLink]="['/']" class="logo__text"
+        >Udemy <span>Fake Version</span>
+      </a>
+    </div>
+    <div class="thumbnail__content text-center">
+      <h1 class="heading--primary">Welcome to Udemy fake version.</h1>
+      <h2 class="heading--secondary">Are you ready to learning?</h2>
+    </div>
+
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <form [formGroup]="signup" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          class="form-control"
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Username"
+          formControlName="username"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          class="form-control"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="********"
+          formControlName="password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="passwordRepeat">Repeat Password</label>
+        <input
+          class="form-control"
+          type="password"
+          name="passwordRepeat"
+          id="passwordRepeat"
+          placeholder="********"
+          formControlName="resetPassword"
+        />
+      </div>
+      <div class="m-t-lg">
+        <button
+          class="btn btn-dark2"
+          type="submit"
+          value="Register"
+          [disabled]="!isValid"
+        >
+          SignUp
+        </button>
+        <ul class="list-inline">
+          <li>
+            <a class="signup__link" [routerLink]="['/login']"
+              >I am already a member</a
+            >
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>

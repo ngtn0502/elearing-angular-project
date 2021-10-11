@@ -13,11 +13,10 @@
   }
 
   &__left {
-    width: 40rem;
     height: 100vh;
-    width: 40vw;
+    width: 35vw;
     background-color: #f8f9fa;
-    padding: 6rem 8rem;
+    padding: 6rem 8rem 0.5rem 8rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -46,8 +45,8 @@
   }
 
   &__reserve {
+    margin-top: auto;
     width: 100%;
-    margin-top: 8rem;
     text-align: center;
     font-size: 0.8rem;
     font-weight: 600;
@@ -59,7 +58,7 @@
     background-position: right center;
     background-size: contain;
     background-repeat: no-repeat;
-    width: 60vw;
+    width: 65vw;
     height: 100vh;
     flex: 1;
     position: relative;
@@ -70,4 +69,37 @@
       transform: translate(-20%, -50%);
     }
   }
+}
+
+input.ng-touched.ng-invalid {
+  border-bottom: 1px solid red;
+}
+.form-group {
+  margin-top: 1rem;
+}
+
+.signup__form {
+  padding: 2.5rem;
+  background: #fafafa;
+}
+label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #000;
+}
+.form-control {
+  background-color: transparent;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  &:focus {
+    border-color: #111;
+  }
+}
+[type="text"] {
+  color: #111;
+}
+[type="password"] {
+  color: #111;
 }
