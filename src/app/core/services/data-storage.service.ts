@@ -4,20 +4,13 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Data, Router } from '@angular/router';
 import { Course } from './../shared/course.model';
-import { CourseService } from './course.service';
-
-const apiURL = 'https://localhost:5001/api/products';
-const CategoryApiURL = 'https://localhost:5001/api/category';
+import { apiURL, CategoryApiURL } from '../config/config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataStorageService {
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private courseService: CourseService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   //   postData() {
   //     this.http.put(apiURL, this.recipeService.getRecipe()).subscribe((data) => {

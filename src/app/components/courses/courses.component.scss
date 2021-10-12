@@ -1,12 +1,35 @@
 .courses {
+  min-height: 33rem;
+
   h2 {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-weight: 900;
     font-size: 2rem;
   }
+
   &__available {
     img {
       margin-bottom: 1rem;
+      width: 80%;
+    }
+  }
+
+  &__filtering {
+    margin-bottom: 1rem;
+    &-select {
+      display: inline-block;
+      cursor: pointer;
+      width: 30%;
+      border-radius: 0;
+      color: #212529;
+      border-color: #212529;
+      font-weight: 700;
+      cursor: pointer;
+
+      &:focus {
+        border-color: inherit;
+        box-shadow: none;
+      }
     }
   }
 }
@@ -19,4 +42,13 @@
   & > * {
     flex: 0 0 30%;
   }
+}
+.options {
+  cursor: pointer;
+}
+
+select option {
+  color: #212529;
+  font-weight: 700;
+  cursor: pointer;
 }

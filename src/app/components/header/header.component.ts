@@ -12,6 +12,8 @@ import * as UIActions from '../../store/ui/ui.action';
 import { Store } from '@ngrx/store';
 import * as CourseActions from '../../store/course/course.action';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserLogin } from 'src/app/core/shared/userLogin.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -19,31 +21,32 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  isOnEditPage: boolean = true;
+  isOnEditPage: Boolean = false;
   searchForm: FormGroup = new FormGroup({});
   isValid: boolean = true;
 
-  constructor(private router: Router, private store: Store<fromApp.AppState>) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (event.url.includes('products')) {
-          this.isOnEditPage = false;
-        } else {
-          this.isOnEditPage = true;
-        }
-      }
-    });
+  isLogin: boolean = false;
+  userLogin: UserLogin = { username: '', accessToken: '' };
+
+  constructor(private router: Router, private store: Store<fromApp.AppState>) {}
+
+  ngOnInit(): void {
     this.searchForm = new FormGroup({
       search: new FormControl('', [
         Validators.required,
         this.noWhitespaceValidator,
       ]),
     });
+
+    const item = localStorage.getItem('userLogin');
+    if (typeof item !== 'undefined' && item !== null) {
+      this.userLogin = JSON.parse(item);
+      this.isLogin = true;
+    }
   }
 
-  ngOnInit(): void {}
-
   onAddNewCourse() {
+    this.router.navigate(['/']);
     this.store.dispatch(new UIActions.OpenModalAction({ type: 'new', id: 0 }));
   }
 
@@ -65,6 +68,17 @@ export class HeaderComponent implements OnInit {
     const query = this.searchForm.value.search;
     this.router.navigate(['/course', 'search'], {
       queryParams: { query: query },
+    });
+  }
+
+  onLogout() {
+    this.isLogin = false;
+    localStorage.clear();
+    Swal.fire({
+      title: 'Logout successfully!',
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonText: 'Okay!',
     });
   }
 

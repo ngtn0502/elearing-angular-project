@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
+import { removeAllWhitespace } from './../../core/shared/functions/helpers';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signgup-page',
@@ -22,7 +24,7 @@ export class SigngupPageComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
       ]),
-      resetPassword: new FormControl(null, [
+      repeatPassword: new FormControl(null, [
         Validators.required,
         Validators.minLength(4),
       ]),
@@ -39,24 +41,43 @@ export class SigngupPageComponent implements OnInit {
     if (!this.signup.valid) return;
     const username = this.signup.value.username;
     const password = this.signup.value.password;
-    const resetPassword = this.signup.value.resetPassword;
+    const repeatPassword = this.signup.value.repeatPassword;
 
-    if (password !== resetPassword) {
-      alert('Password does not match repeat password!');
+    if (password !== repeatPassword) {
+      Swal.fire({
+        title: 'Something wrong here!',
+        text: 'Password does not match repeat one!',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Try again!',
+        cancelButtonText: 'Okay',
+      });
     }
-
-    console.log(username, password);
 
     this.authService.signup(username, password).subscribe(
       (resData) => {
-        console.log(resData);
-        const username = resData.username.replace(/ /g, '');
+        const username = removeAllWhitespace(resData.username);
         this.router.navigate([`/login`], {
           queryParams: { username: username },
+        });
+        Swal.fire({
+          title: 'Signup successfully!',
+          text: 'Please login to continue',
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonText: 'Okay!',
         });
       },
       (error) => {
         console.log(error);
+        Swal.fire({
+          title: 'Something wrong here!',
+          text: error.error || 'Unknown error happen, please try again!',
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: 'Try again!',
+          cancelButtonText: 'Okay',
+        });
       }
     );
     this.signup.reset();

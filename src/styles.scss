@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
-$color-bg: rgb(248, 249, 250);
-$color-secondary: #6a6f73;
-$color-darkbg: #1c1d1f;
+@import "./scss/variable";
+@import "./scss/mixin";
 * {
   margin: 0;
   padding: 0;
@@ -24,6 +23,23 @@ body {
   font-weight: 400;
   line-height: 1.6;
   background-color: rgb(248, 249, 250);
+}
+
+@media screen and (max-width: 75em) {
+  html {
+    font-size: 90%;
+  }
+}
+@media screen and (max-width: 56.25em) {
+  html {
+    font-size: 80%;
+  }
+}
+
+@media screen and (max-width: 43.75em) {
+  html {
+    font-size: 70%;
+  }
 }
 
 h1 {

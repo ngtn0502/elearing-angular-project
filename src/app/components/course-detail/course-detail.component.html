@@ -1,0 +1,107 @@
+<section class="course-detail dark-background">
+  <div class="course-detail__info">
+    <h1>{{ course.name }}</h1>
+    <p>
+      {{ course.description }}
+    </p>
+    <div class="course-detail__rating">
+      <span class="badge-bestseller">Bestseller</span>
+      <span>
+        <i *ngFor="let rating of ratingArray" class="bi bi-star-fill"></i
+      ></span>
+    </div>
+    <div class="course-detail__instructor">
+      Created by <span class="text-purple-light">{{ course.instructor }}</span>
+    </div>
+    <div class="course-detail__languages">
+      <!-- <span>
+        <i class="bi bi-patch-exclamation"></i>
+        Last updated 8/2021
+      </span> -->
+      <span
+        ><i class="bi bi-globe"></i>
+        English
+      </span>
+      <span>
+        <i class="bi bi-badge-cc"></i>
+        English, French [Auto]
+      </span>
+    </div>
+    <div class="course-detail__share">
+      <button class="btn btn-outline-dark">
+        Wishlist <i class="bi bi-heart"></i>
+      </button>
+
+      <button class="btn btn-outline-dark">
+        Share <i class="bi bi-share"></i>
+      </button>
+
+      <button class="btn btn-outline-dark">
+        Gift this course <i class="bi bi-gift"></i>
+      </button>
+    </div>
+  </div>
+  <div class="course-detail__card">
+    <img [src]="course.imageUrl" alt="" />
+    <div class="course-detail__card-bottom">
+      <div class="course-detail__price">
+        <span class="fs-2 fw-bold">${{ course.price }}</span>
+        <span class="text-decoration-line-through fw-lighter">$89.99</span>
+        <span class="fw-lighter">84% off</span>
+      </div>
+      <div class="course-detail__discount pb-2">
+        <i class="bi bi-alarm text-danger"></i>
+        <span class="text-danger"
+          ><span class="fw-bold">1 day</span> left at this price!</span
+        >
+      </div>
+      <div class="course-detail__buy">
+        <button class="btn btn-outline-danger">Go to cart</button>
+        <button class="btn btn-outline-dark">Buy now</button>
+      </div>
+      <p>30-Day Money-Back Guarantee</p>
+
+      <h5>This course includes:</h5>
+      <div class="course-detail__includes">
+        <span
+          ><i class="bi bi-caret-right-square"></i> Full lifetime access</span
+        >
+        <span><i class="bi bi-phone"></i> Access on mobile and TV</span>
+        <span><i class="bi bi-trophy"></i> Certificate of completion</span>
+
+        <span
+          ><i class="bi bi-play-btn"></i> More than 10 hours on-demand
+          video</span
+        >
+        <span><i class="bi bi-code-slash"></i> Coding exercises</span>
+        <span><i class="bi bi-download"></i> Downloadable resource</span>
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+</section>
+<div class="topcompany">
+  <h3>Top companies trust Udemy</h3>
+  <p>Get your team access to Udemy's top 6,000+ courses</p>
+  <div class="topcompany__image">
+    <img src="https://s.udemycdn.com/partner-logos/v4/apple-dark.svg" alt="" />
+    <img
+      src="https://s.udemycdn.com/partner-logos/v4/eventbrite-dark.svg"
+      alt=""
+    />
+    <img
+      src="https://s.udemycdn.com/partner-logos/v4/volkswagen-dark.svg"
+      alt=""
+    />
+    <img
+      src="https://s.udemycdn.com/partner-logos/v4/netflix-dark.svg"
+      alt=""
+    />
+    <img
+      src="https://s.udemycdn.com/partner-logos/v4/eventbrite-dark.svg"
+      alt=""
+    />
+  </div>
+  <button class="btn btn-outline-dark">Try Udemy Business</button>
+</div>

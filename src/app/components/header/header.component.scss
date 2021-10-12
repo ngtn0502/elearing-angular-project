@@ -1,11 +1,16 @@
+@import "../../../scss/variable";
+@import "../../../scss/mixin";
+
 .header {
+  display: flex;
   justify-content: space-between;
-  padding: 0.5rem 2rem;
   align-items: center;
+  padding: 0.5rem 2rem;
+  flex-wrap: nowrap;
   background-color: #fff !important;
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
-  .navbar-collapse {
-    flex-grow: 0;
+  @include respond(phone) {
+    display: block;
   }
 
   &-logo {
@@ -14,9 +19,13 @@
 
   .header-search {
     display: flex;
-    gap: 5rem;
-    flex-basis: 80%;
+    // gap: 5rem;
+    // flex-basis: 70%;
     position: relative;
+    @include respond(phone) {
+      display: block;
+      margin: 1rem 0;
+    }
     .d-flex {
       align-items: center;
       a {
@@ -30,7 +39,14 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      width: 50%;
+      max-width: 60%;
+      @include respond(tab-land) {
+        margin: 1rem 0;
+        max-width: 60%;
+      }
+      // @include respond(tab-port) {
+      //   width: 30%;
+      // }
       .btn-outline-dark {
         white-space: nowrap;
       }
@@ -40,12 +56,24 @@
       }
       div {
         display: flex;
-        width: 60rem;
+        width: 55rem;
         border: 1px solid black;
         height: 2.5rem;
         border-radius: 500px;
         align-items: center;
         margin-right: 1rem;
+        @include respond(desktop1400) {
+          width: 35rem;
+        }
+        @include respond(tab-land) {
+          width: 25rem;
+        }
+        @include respond(tab-port) {
+          width: 22rem;
+        }
+        @include respond(phone) {
+          width: 55rem;
+        }
         input {
           flex: 2;
           outline: none;
@@ -85,6 +113,42 @@
   &__login {
     display: flex;
     gap: 1rem;
+  }
+
+  &__user {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 700;
+    img {
+      display: block;
+      width: 2em;
+      height: auto;
+    }
+    span {
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        height: 2rem;
+        width: 1px;
+        background-color: #000;
+        top: -10%;
+        right: -0.8rem;
+      }
+    }
+    button {
+      font-size: 0.8rem;
+      border: none;
+      &:hover,
+      &:active,
+      &:focus {
+        outline: none;
+        background-color: inherit;
+        color: inherit;
+        box-shadow: none;
+      }
+    }
   }
 }
 

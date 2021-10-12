@@ -5,6 +5,7 @@ import * as CourseActions from '../../store/course/course.action';
 import * as CategoryActions from '../../store/category/category.action';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -16,11 +17,13 @@ export class CategoryComponent implements OnInit {
   chosenID: number = 0;
   isShowCategory: boolean = true;
 
+  private subscriptions = new Subscription();
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private store: Store<fromApp.AppState>
   ) {
-    this.activatedRoute.params.subscribe((params) => {
+    this.subscriptions = this.activatedRoute.params.subscribe((params) => {
       this.chosenID = Number(params.id || 0);
       this.store.dispatch(
         new CourseActions.GetCoursesByCategoryAction(this.chosenID)
@@ -40,5 +43,9 @@ export class CategoryComponent implements OnInit {
   onChooseCategory(id: number) {
     this.chosenID = id;
     new CourseActions.GetCoursesByCategoryAction(this.chosenID);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

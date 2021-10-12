@@ -3,6 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from './../../core/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { removeAllWhitespace } from 'src/app/core/shared/functions/helpers';
+import Swal from 'sweetalert2';
+// @ts-ignore
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-login-page',
@@ -46,8 +50,38 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit() {
     if (!this.loginForm.valid) return;
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.password;
+    const username = removeAllWhitespace(this.loginForm.value.username);
+    const password = removeAllWhitespace(this.loginForm.value.password);
+    this.authService.login(username, password).subscribe(
+      (resData) => {
+        localStorage.setItem(
+          'userLogin',
+          JSON.stringify({
+            username: resData.username,
+            token: resData.token,
+          })
+        );
+
+        this.router.navigate(['/']);
+        Swal.fire({
+          title: 'Login successfully!',
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonText: 'Okay!',
+        });
+      },
+      (err) => {
+        console.log(err);
+        Swal.fire({
+          title: 'Something wrong here!',
+          text: 'Username or password is incorrect!',
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: 'Try again!',
+          cancelButtonText: 'Okay',
+        });
+      }
+    );
   }
 
   onSignup() {

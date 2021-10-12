@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light header">
+<nav class="header">
   <div class="header-search">
     <div class="d-flex header-logo" [routerLink]="['/']">
       <img
-        src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
+        src="./assets/img/logo-udemy.svg"
         alt=""
         class="header-search__img"
       />
@@ -31,22 +31,31 @@
         type="button"
         class="btn btn-outline-dark"
         (click)="onAddNewCourse()"
-        *ngIf="isOnEditPage"
       >
         Add New Course
       </button>
     </form>
   </div>
 
-  <div class="header__login">
+  <div class="header__login" *ngIf="!isLogin">
     <button
       [routerLink]="['/login']"
       type="button"
       class="btn btn-outline-dark"
     >
-      Log in</button
-    ><button type="button" class="btn btn-outline-dark btn-dark2">
+      Log in
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark btn-dark2"
+      [routerLink]="['/signup']"
+    >
       Sign up
     </button>
+  </div>
+  <div class="header__user" *ngIf="isLogin">
+    <img src="./assets/img/computer-user.png" alt="" />
+    <span>{{ userLogin.username }}</span>
+    <button class="btn btn-outline-dark" (click)="onLogout()">LOG OUT</button>
   </div>
 </nav>

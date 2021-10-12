@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-  isDetailPage: boolean = false;
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {}

@@ -4,6 +4,7 @@ import * as UIActions from '../../store/ui/ui.action';
 import { Store } from '@ngrx/store';
 import * as CourseActions from '../../store/course/course.action';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pagination',
@@ -15,7 +16,10 @@ export class PaginationComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 3;
   totalPage: number = 0;
-  haha: number = 0;
+  id: number = 0;
+
+  private subscriptions = new Subscription();
+
   constructor(
     private store: Store<fromApp.AppState>,
     private router: Router,
@@ -23,14 +27,14 @@ export class PaginationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Logic for handle pagination in front end
+    // Logic for creating pagination bar in front end
     this.store.select('courses').subscribe((coursesState) => {
       this.pageArray = [];
       for (let i = 1; i <= coursesState.totalRecords; i++) {
         this.pageArray.push(i);
       }
 
-      this.totalPage = Math.round(coursesState.totalRecords / this.pageSize);
+      this.totalPage = Math.ceil(coursesState.totalRecords / this.pageSize);
 
       this.pageArray = this.pageArray.slice(0, this.totalPage);
     });
@@ -38,6 +42,7 @@ export class PaginationComponent implements OnInit {
 
   onChangePage(id: number) {
     this.currentPage = id;
+
     this.getCoursesByPage();
   }
 
@@ -47,21 +52,37 @@ export class PaginationComponent implements OnInit {
     } else {
       this.currentPage++;
     }
+    this.currentPage;
     this.getCoursesByPage();
   }
 
   getCoursesByPage() {
-    this.activatedRoute.url.subscribe((url) => {
-      let id = '0';
+    this.subscriptions = this.activatedRoute.url.subscribe((url) => {
       if (url[1]) {
-        id = url[1].path;
+        if (Number(url[1].path) !== this.id) {
+          this.currentPage = 1;
+          this.pageSize = 3;
+        }
+        this.id = Number(url[1].path);
       }
-      this.router.navigate(['/category', id], {
+      this.router.navigate(['/category', this.id], {
         queryParams: {
           pageNumber: this.currentPage,
           pageSize: this.pageSize,
         },
       });
     });
+
+    this.store.dispatch(
+      new CourseActions.PaginationCoursesAction({
+        id: Number(this.id),
+        pageNumber: this.currentPage,
+        pageSize: this.pageSize,
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

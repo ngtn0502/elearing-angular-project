@@ -29,7 +29,9 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/scss/_variable.scss",
+              "src/scss/_mixin.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

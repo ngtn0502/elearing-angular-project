@@ -19,21 +19,25 @@ import { HeaderComponent } from './components/header/header.component';
 import { CourseComponent } from './components/courses/course/course.component';
 import { ModalDetailComponent } from './components/modal-detail/modal-detail.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CourseDetailComponent } from './page/course-detail-page/course-detail.component';
+import { CourseDetailComponent } from './components/course-detail/course-detail.component';
 import { LoginPageComponent } from './page/login-page/login-page.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { HomepageComponent } from './page/home-page/homepage.component';
 import { SearchpageComponent } from './page/search-page/searchpage.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { CourseDetailPageComponent } from './page/course-detail-page/course-detail-page.component';
+import { SigngupPageComponent } from './page/signgup-page/signgup-page.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomepageComponent, pathMatch: 'full' },
-  { path: 'course/search', component: CoursesComponent },
+  { path: '', redirectTo: 'category/0', pathMatch: 'full' },
+  { path: 'course/search', component: SearchpageComponent },
   { path: 'course/page', component: HomepageComponent },
   { path: 'category/:id', component: HomepageComponent },
-  { path: 'products/:id', component: CourseDetailComponent },
+  { path: 'products/:id', component: CourseDetailPageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: SigngupPageComponent },
 ];
 
 @NgModule({
@@ -52,6 +56,9 @@ const appRoutes: Routes = [
     HomepageComponent,
     SearchpageComponent,
     PaginationComponent,
+    LoadingComponent,
+    CourseDetailPageComponent,
+    SigngupPageComponent,
   ],
   imports: [
     BrowserModule,

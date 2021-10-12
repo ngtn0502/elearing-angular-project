@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Course, CourseObj } from '../../core/shared/course.model';
-import { CourseService } from '../../core/services/course.service';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as CourseActions from '../../store/course/course.action';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-courses',
@@ -12,37 +12,46 @@ import * as CourseActions from '../../store/course/course.action';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[] | null = null;
+  courses: Course[] = [];
   course: Course;
+  isLoading: boolean = false;
   // For Searching
   isSearch: boolean = false;
   searchQuery: any = '';
   searchResultLLength: number = 0;
+  // For sorting
+  criteria: string = '';
+  filterForm: FormGroup = new FormGroup({});
 
   constructor(
-    private courseService: CourseService,
     private activatedRoute: ActivatedRoute,
     private store: Store<fromApp.AppState>
   ) {
     this.course = CourseObj;
+    this.filterForm = new FormGroup({
+      filterCri: new FormControl(null),
+    });
+    this.filterForm.controls['filterCri'].setValue('default');
   }
 
   ngOnInit(): void {
     this.searching();
-    this.pagination();
-
-    if (this.courses === null) {
+    // this.pagination();
+    if (this.courses.length === 0) {
       this.getCoursesFromState();
     }
-  }
 
-  getCourseData() {
-    this.courses = this.courseService.courses;
+    this.filterForm.controls['filterCri'].valueChanges.subscribe((value) => {
+      this.criteria = value;
+      this.filterCoursesByCriteria(this.criteria);
+    });
   }
 
   getCoursesFromState() {
     this.store.select('courses').subscribe((coursesState) => {
+      this.isLoading = coursesState.isLoading;
       this.courses = coursesState.courses;
+      this.filterCoursesByCriteria(this.criteria);
       this.searchResultLLength = coursesState.courses.length;
     });
   }
@@ -64,21 +73,23 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  // Handle paging functionality
-  pagination() {
-    this.activatedRoute.url.subscribe((url) => {
-      const params = this.activatedRoute.snapshot.queryParams;
-      if (params.pageNumber && params.pageNumber !== 0) {
-        console.log(Number(url[1].path), params.pageNumber, params.pageSize);
-
-        this.store.dispatch(
-          new CourseActions.PaginationCoursesAction({
-            id: Number(url[1].path),
-            pageNumber: params.pageNumber,
-            pageSize: params.pageSize,
-          })
-        );
-      }
-    });
+  filterCoursesByCriteria(criteria: string) {
+    const filteredCourses = [...this.courses];
+    if (criteria === 'az') {
+      filteredCourses.sort((a, b) => a.name.localeCompare(b.name));
+      this.courses = filteredCourses;
+    }
+    if (criteria === 'za') {
+      filteredCourses.sort((a, b) => b.name.localeCompare(a.name));
+      this.courses = filteredCourses;
+    }
+    if (criteria === 'lowest') {
+      filteredCourses.sort((a, b) => a.price - b.price);
+      this.courses = filteredCourses;
+    }
+    if (criteria === 'highest') {
+      filteredCourses.sort((a, b) => b.price - a.price);
+      this.courses = filteredCourses;
+    }
   }
 }
