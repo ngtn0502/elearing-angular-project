@@ -14,6 +14,7 @@ import * as CourseActions from '../../store/course/course.action';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLogin } from 'src/app/core/shared/userLogin.model';
 import Swal from 'sweetalert2';
+import { getUserData } from 'src/app/core/shared/functions/helpers';
 
 @Component({
   selector: 'app-header',
@@ -38,9 +39,8 @@ export class HeaderComponent implements OnInit {
       ]),
     });
 
-    const item = localStorage.getItem('userLogin');
-    if (typeof item !== 'undefined' && item !== null) {
-      this.userLogin = JSON.parse(item);
+    if (getUserData()) {
+      this.userLogin = getUserData();
       this.isLogin = true;
     }
   }
@@ -74,6 +74,7 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.isLogin = false;
     localStorage.clear();
+    this.router.navigate(['/']);
     Swal.fire({
       title: 'Logout successfully!',
       icon: 'success',

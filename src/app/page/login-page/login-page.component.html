@@ -1,12 +1,12 @@
 <section class="login">
   <div class="login__left">
-    <div class="login__logo" [routerLink]="['']">
+    <a class="login__logo" [routerLink]="['']">
       <img
         src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
         alt=""
       />
       <span>Fake Version</span>
-    </div>
+    </a>
     <form
       action=""
       class="login__form"
@@ -41,7 +41,7 @@
         class="btn btn-outline-dark btn-dark2"
         [disabled]="!isValid"
       >
-        Submit
+        Login
       </button>
     </form>
     <button

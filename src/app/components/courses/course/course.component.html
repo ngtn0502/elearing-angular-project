@@ -1,14 +1,16 @@
-<div class="course" [routerLink]="['/products', course.id]">
-  <img [src]="course.imageUrl" alt="" />
-  <div class="course-bottom">
-    <h3 class="course-name">
-      {{ course.name }}
-    </h3>
-    <p class="course-instr">{{ course.instructor }}</p>
-    <div class="course-info">
-      <p>${{ course.price }}</p>
+<div class="course">
+  <a [routerLink]="['/products', course.id]">
+    <img [src]="course.imageUrl" alt="" />
+    <div class="course-bottom">
+      <h3 class="course-name">
+        {{ course.name }}
+      </h3>
+      <p class="course-instr">{{ course.instructor }}</p>
+      <div class="course-info">
+        <p>${{ course.price }}</p>
+      </div>
     </div>
-  </div>
+  </a>
 </div>
 <div class="course__change">
   <button class="btn btn-outline-dark" (click)="onEditCourse(course.id)">

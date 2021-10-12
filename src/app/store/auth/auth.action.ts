@@ -1,0 +1,44 @@
+import { Action } from '@ngrx/store';
+import { Category } from './../../core/shared/category.model';
+export const REGISTER = 'REGISTER';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const LOGIN = 'LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGOUT = 'LOGOUT';
+
+export class RegisterAction implements Action {
+  readonly type = 'REGISTER';
+}
+export class RegisterSuccessAction implements Action {
+  readonly type = 'REGISTER_SUCCESS';
+  constructor(public payload: any) {}
+}
+export class RegisterErrorAction implements Action {
+  readonly type = 'REGISTER_ERROR';
+}
+
+export class LoginAction implements Action {
+  readonly type = 'LOGIN';
+}
+export class LoginSuccessAction implements Action {
+  readonly type = 'LOGIN_SUCCESS';
+  constructor(public payload: any) {}
+}
+export class LoginErrorAction implements Action {
+  readonly type = 'LOGIN_ERROR';
+}
+
+export class LogoutAction implements Action {
+  readonly type = 'LOGOUT';
+}
+
+export type AuthActions =
+  | RegisterAction
+  | RegisterSuccessAction
+  | RegisterErrorAction
+  | LoginAction
+  | LoginSuccessAction
+  | LoginErrorAction
+  | LogoutAction;

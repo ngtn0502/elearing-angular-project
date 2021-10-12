@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
 import { removeAllWhitespace } from './../../core/shared/functions/helpers';
 import Swal from 'sweetalert2';
@@ -52,6 +52,7 @@ export class SigngupPageComponent implements OnInit {
         confirmButtonText: 'Try again!',
         cancelButtonText: 'Okay',
       });
+      return;
     }
 
     this.authService.signup(username, password).subscribe(
@@ -67,12 +68,13 @@ export class SigngupPageComponent implements OnInit {
           showCancelButton: false,
           confirmButtonText: 'Okay!',
         });
+        this.signup.reset();
       },
-      (error) => {
-        console.log(error);
+      (errorMessage) => {
+        console.log(errorMessage);
         Swal.fire({
           title: 'Something wrong here!',
-          text: error.error || 'Unknown error happen, please try again!',
+          text: errorMessage,
           icon: 'error',
           showCancelButton: true,
           confirmButtonText: 'Try again!',
@@ -80,6 +82,5 @@ export class SigngupPageComponent implements OnInit {
         });
       }
     );
-    this.signup.reset();
   }
 }

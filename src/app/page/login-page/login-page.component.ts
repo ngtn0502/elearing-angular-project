@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from './../../core/services/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { removeAllWhitespace } from 'src/app/core/shared/functions/helpers';
 import Swal from 'sweetalert2';
+import * as AuthActions from '../../store/auth/auth.action';
+
 // @ts-ignore
 import { stringify } from 'querystring';
+import { Store } from '@ngrx/store';
+import { AppState } from './../../store/app.reducer';
 
 @Component({
   selector: 'app-login-page',
@@ -22,7 +26,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private store: Store<AppState>
   ) {
     this.subscription = this.activatedRoute.queryParams.subscribe(
       (queryParams) => {
@@ -54,14 +59,9 @@ export class LoginPageComponent implements OnInit {
     const password = removeAllWhitespace(this.loginForm.value.password);
     this.authService.login(username, password).subscribe(
       (resData) => {
-        localStorage.setItem(
-          'userLogin',
-          JSON.stringify({
-            username: resData.username,
-            token: resData.token,
-          })
-        );
-
+        const userLogin = JSON.stringify(resData);
+        localStorage.setItem('userLogin', userLogin);
+        this.store.dispatch(new AuthActions.LoginSuccessAction(userLogin));
         this.router.navigate(['/']);
         Swal.fire({
           title: 'Login successfully!',
@@ -70,11 +70,10 @@ export class LoginPageComponent implements OnInit {
           confirmButtonText: 'Okay!',
         });
       },
-      (err) => {
-        console.log(err);
+      (errorMessage) => {
         Swal.fire({
           title: 'Something wrong here!',
-          text: 'Username or password is incorrect!',
+          text: errorMessage,
           icon: 'error',
           showCancelButton: true,
           confirmButtonText: 'Try again!',

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -29,6 +29,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { LoadingComponent } from './components/loading/loading.component';
 import { CourseDetailPageComponent } from './page/course-detail-page/course-detail-page.component';
 import { SigngupPageComponent } from './page/signgup-page/signgup-page.component';
+import { AuthInterceptorService } from './core/auth/auth-interceptor.service';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'category/0', pathMatch: 'full' },
@@ -36,8 +38,8 @@ const appRoutes: Routes = [
   { path: 'course/page', component: HomepageComponent },
   { path: 'category/:id', component: HomepageComponent },
   { path: 'products/:id', component: CourseDetailPageComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'signup', component: SigngupPageComponent },
+  { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
+  { path: 'signup', component: SigngupPageComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -74,7 +76,13 @@ const appRoutes: Routes = [
     EffectsModule.forRoot([CourseEffect, CategoryEffect]),
     RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'enabled' }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
