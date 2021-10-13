@@ -1,0 +1,59 @@
+.form-group {
+  margin-bottom: 0.5rem;
+}
+.form-compo {
+  display: flex;
+  gap: 1rem;
+  & > * {
+    flex: 1;
+  }
+}
+
+.edit {
+  max-width: 700px;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  &__form {
+  }
+
+  &__img {
+    display: block;
+    margin: 0 auto;
+    width: 15rem;
+    height: auto;
+  }
+
+  &__button {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    & > * {
+      flex: 1;
+    }
+  }
+
+  &__select {
+    position: relative;
+    cursor: pointer;
+    &--icon {
+      position: absolute;
+      top: 1.75rem;
+      right: 0.5rem;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+input.ng-invalid,
+textarea.ng-invalid,
+select.ng-invalid,
+option.ng-invalid {
+  border: 1px solid red;
+}
+
+.new.ng-invalid,
+.new.ng-invalid {
+  border: 1px solid red;
+}

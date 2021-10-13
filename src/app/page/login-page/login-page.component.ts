@@ -11,6 +11,7 @@ import * as AuthActions from '../../store/auth/auth.action';
 import { stringify } from 'querystring';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../store/app.reducer';
+import { UserData } from 'src/app/core/shared/userData.model';
 
 @Component({
   selector: 'app-login-page',
@@ -23,6 +24,7 @@ export class LoginPageComponent implements OnInit {
 
   username: string = '';
   subscription: Subscription = new Subscription();
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -57,29 +59,12 @@ export class LoginPageComponent implements OnInit {
     if (!this.loginForm.valid) return;
     const username = removeAllWhitespace(this.loginForm.value.username);
     const password = removeAllWhitespace(this.loginForm.value.password);
-    this.authService.login(username, password).subscribe(
-      (resData) => {
-        const userLogin = JSON.stringify(resData);
-        localStorage.setItem('userLogin', userLogin);
-        this.store.dispatch(new AuthActions.LoginSuccessAction(userLogin));
-        this.router.navigate(['/']);
-        Swal.fire({
-          title: 'Login successfully!',
-          icon: 'success',
-          showCancelButton: false,
-          confirmButtonText: 'Okay!',
-        });
-      },
-      (errorMessage) => {
-        Swal.fire({
-          title: 'Something wrong here!',
-          text: errorMessage,
-          icon: 'error',
-          showCancelButton: true,
-          confirmButtonText: 'Try again!',
-          cancelButtonText: 'Okay',
-        });
-      }
+
+    this.store.dispatch(
+      new AuthActions.LoginAction({
+        username: username,
+        password: password,
+      })
     );
   }
 
