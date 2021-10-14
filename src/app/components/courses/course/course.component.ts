@@ -3,6 +3,8 @@ import { Course, CourseObj } from '../../../core/shared/course.model';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
 import * as UIActions from 'src/app/store/ui/ui.action';
+import { Router } from '@angular/router';
+import * as CourseActions from '../../../store/course/course.action';
 
 @Component({
   selector: 'app-course',
@@ -11,12 +13,17 @@ import * as UIActions from 'src/app/store/ui/ui.action';
 })
 export class CourseComponent implements OnInit {
   @Input() course: Course;
+  isLogin: boolean = false;
 
   constructor(private store: Store<fromApp.AppState>) {
     this.course = CourseObj;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.select('auth').subscribe((authState) => {
+      this.isLogin = authState.isLogin;
+    });
+  }
 
   onEditCourse(id: number) {
     this.store.dispatch(

@@ -1,5 +1,5 @@
 .courses {
-  min-height: 33rem;
+  min-height: 31.5rem;
 
   h2 {
     margin-bottom: 1rem;
@@ -51,4 +51,8 @@ select option {
   color: #212529;
   font-weight: 700;
   cursor: pointer;
+}
+
+.isLogin {
+  min-height: 28rem;
 }

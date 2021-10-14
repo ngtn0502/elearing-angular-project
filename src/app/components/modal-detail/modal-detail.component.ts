@@ -48,10 +48,12 @@ export class ModalDetailComponent implements OnInit {
       rating: new FormControl(this.course.rating, [
         Validators.required,
         Validators.minLength(1),
+        Validators.pattern('^[0-9]*$'),
       ]),
       price: new FormControl(this.course.price, [
         Validators.required,
-        Validators.minLength(2),
+        Validators.minLength(1),
+        Validators.pattern('[+-]?([0-9]*[.])?[0-9]+' || '^[0-9]*$'),
       ]),
       categoryId: new FormControl(
         this.typeModal !== 'new' ? this.course.categoryId : null,
@@ -62,6 +64,10 @@ export class ModalDetailComponent implements OnInit {
         Validators.minLength(5),
       ]),
       instructor: new FormControl(this.course.instructor, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      language: new FormControl(this.course.language, [
         Validators.required,
         Validators.minLength(3),
       ]),

@@ -59,6 +59,10 @@ export class AddPageComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
       ]),
+      language: new FormControl(this.course.language, [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
     });
   }
 

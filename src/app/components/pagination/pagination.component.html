@@ -11,12 +11,34 @@
       </button>
       <li
         class="page-number"
+        *ngIf="minPageNumberLimit >= 1"
+        (click)="onGoFirstPage()"
+      >
+        1
+      </li>
+      <li
+        class="page-number"
+        *ngIf="minPageNumberLimit >= 1"
+        (click)="onNavigatePage('prev')"
+      >
+        &hellip;
+      </li>
+      <li
+        class="page-number"
         [ngClass]="{ active: el === currentPage }"
         *ngFor="let el of pageArray"
         (click)="onChangePage(el)"
       >
         {{ el }}
       </li>
+      <li
+        class="page-number"
+        *ngIf="pageLength > maxPageNumberLimit"
+        (click)="onNavigatePage('next')"
+      >
+        &hellip;
+      </li>
+
       <button
         class="prev"
         (click)="onNavigatePage('next')"

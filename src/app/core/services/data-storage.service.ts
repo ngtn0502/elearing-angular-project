@@ -26,6 +26,7 @@ export class DataStorageService {
       ImageUrl: form.imageUrl,
       Instructor: form.instructor,
       CategoryId: form.categoryId,
+      Language: form.language,
     };
 
     return this.http.post(apiURL, newForm);
@@ -58,6 +59,7 @@ export class DataStorageService {
       ImageUrl: form.imageUrl,
       Instructor: form.instructor,
       CategoryId: form.categoryId,
+      Language: form.language,
     };
 
     return this.http.put(`${apiURL}/edit?query=${id}`, updatedForm);

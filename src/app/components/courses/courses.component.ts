@@ -15,6 +15,7 @@ export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   course: Course;
   isLoading: boolean = false;
+  isLogin: boolean = false;
   // For Searching
   isSearch: boolean = false;
   searchQuery: any = '';
@@ -44,6 +45,10 @@ export class CoursesComponent implements OnInit {
     this.filterForm.controls['filterCri'].valueChanges.subscribe((value) => {
       this.criteria = value;
       this.filterCoursesByCriteria(this.criteria);
+    });
+
+    this.store.select('auth').subscribe((authState) => {
+      this.isLogin = authState.isLogin;
     });
   }
 

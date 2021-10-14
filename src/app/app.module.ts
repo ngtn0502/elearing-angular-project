@@ -30,7 +30,9 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { CourseDetailPageComponent } from './page/course-detail-page/course-detail-page.component';
 import { SigngupPageComponent } from './page/signgup-page/signgup-page.component';
 import { AuthInterceptorService } from './core/auth/auth-interceptor.service';
-import { AuthGuard } from './core/auth/auth.guard';
+import { AuthGuard, TokenGuard } from './core/auth/auth.guard';
+import { AuthEffect } from './store/auth/auth.effect';
+import { AddPageComponent } from './page/add-page/add-page.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'category/0', pathMatch: 'full' },
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   { path: 'course/page', component: HomepageComponent },
   { path: 'category/:id', component: HomepageComponent },
   { path: 'products/:id', component: CourseDetailPageComponent },
+  { path: 'new', component: AddPageComponent, canActivate: [TokenGuard] },
   { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SigngupPageComponent, canActivate: [AuthGuard] },
 ];
@@ -61,6 +64,7 @@ const appRoutes: Routes = [
     LoadingComponent,
     CourseDetailPageComponent,
     SigngupPageComponent,
+    AddPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +77,7 @@ const appRoutes: Routes = [
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: false, // Pauses recording actions and state changes when the extension window is not open
     }),
-    EffectsModule.forRoot([CourseEffect, CategoryEffect]),
+    EffectsModule.forRoot([CourseEffect, CategoryEffect, AuthEffect]),
     RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'enabled' }),
   ],
   providers: [

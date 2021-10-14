@@ -1,23 +1,23 @@
 import { of } from 'rxjs';
 import { Course, CourseObj } from '../../core/shared/course.model';
-import { UserLogin } from 'src/app/core/shared/userLogin.model';
+import { UserData } from 'src/app/core/shared/userData.model';
 import * as AuthAction from './auth.action';
 
 export interface State {
   isLoading: boolean;
-  isError: boolean;
   isLogin: boolean;
-  userLogin: UserLogin;
+  UserData: UserData | null;
+  errorMessage: string | null;
 }
 
 const initialState: State = {
   isLoading: false,
-  isError: false,
   isLogin: false,
-  userLogin: { username: '', accessToken: '' },
+  UserData: null,
+  errorMessage: null,
 };
 
-export function CourseReducer(
+export function AuthReducer(
   state = initialState,
   action: AuthAction.AuthActions
 ) {
@@ -25,6 +25,7 @@ export function CourseReducer(
     return {
       ...state,
       isLoading: true,
+      errorMessage: null,
     };
   }
 
@@ -32,9 +33,17 @@ export function CourseReducer(
     return {
       ...state,
       isLoading: false,
-      isError: false,
       isLogin: true,
-      userLogin: action.payload,
+      UserData: action.payload,
+    };
+  }
+
+  if (action.type === AuthAction.LOGIN_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      isLogin: false,
+      errorMessage: action.payload,
     };
   }
 
@@ -48,7 +57,7 @@ export function CourseReducer(
   if (action.type === AuthAction.REGISTER_SUCCESS) {
     return {
       ...state,
-      userLogin: action.payload,
+      UserData: action.payload,
     };
   }
 
@@ -56,9 +65,17 @@ export function CourseReducer(
     return {
       ...state,
       isLoading: false,
-      isError: false,
       isLogin: false,
-      userLogin: { username: '', accessToken: '' },
+      UserData: null,
+    };
+  }
+
+  if (action.type === AuthAction.AUTO_LOGIN_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      isLogin: true,
+      UserData: action.payload,
     };
   }
 

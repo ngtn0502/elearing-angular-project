@@ -12,7 +12,7 @@
     </div>
   </a>
 </div>
-<div class="course__change">
+<div class="course__change" *ngIf="isLogin">
   <button class="btn btn-outline-dark" (click)="onEditCourse(course.id)">
     Edit
   </button>

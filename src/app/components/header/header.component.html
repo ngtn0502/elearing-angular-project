@@ -27,13 +27,9 @@
           "
         />
       </div>
-      <button
-        type="button"
-        class="btn btn-outline-dark"
-        (click)="onAddNewCourse()"
-      >
+      <a [routerLink]="['/new']" class="btn btn-outline-dark" *ngIf="isLogin">
         Add New Course
-      </button>
+      </a>
     </form>
   </div>
 
@@ -55,7 +51,7 @@
   </div>
   <div class="header__user" *ngIf="isLogin">
     <img src="./assets/img/computer-user.png" alt="" />
-    <span>{{ userLogin.username }}</span>
+    <span>{{ userData?.username }}</span>
     <button class="btn btn-outline-dark" (click)="onLogout()">LOG OUT</button>
   </div>
 </nav>

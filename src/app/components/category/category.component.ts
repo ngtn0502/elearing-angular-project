@@ -3,6 +3,7 @@ import { Category } from '../../core/shared/category.model';
 import { ActivatedRoute } from '@angular/router';
 import * as CourseActions from '../../store/course/course.action';
 import * as CategoryActions from '../../store/category/category.action';
+import * as UIActions from '../../store/ui/ui.action';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';

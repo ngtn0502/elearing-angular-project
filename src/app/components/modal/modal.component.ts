@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as CourseActions from '../../store/course/course.action';
@@ -17,7 +18,7 @@ export class ModalComponent implements OnInit {
   id: number = 0;
   //
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store<fromApp.AppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.store.select('ui').subscribe((UIState) => {
@@ -40,6 +41,7 @@ export class ModalComponent implements OnInit {
       this.store.dispatch(
         new UIActions.ShowToastAction('Delete Course Successfully')
       );
+      this;
     } else {
       this.store.dispatch(
         new UIActions.ShowToastAction('Something wrong! Please try again')

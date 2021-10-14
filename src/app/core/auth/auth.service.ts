@@ -4,7 +4,7 @@ import { authApiURL } from '../config/config';
 import { removeAllWhitespace } from '../shared/functions/helpers';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { UserLogin } from 'src/app/core/shared/userLogin.model';
+import { UserData } from 'src/app/core/shared/userData.model';
 
 interface AuthResponseData {
   username: string;
@@ -38,7 +38,7 @@ export class AuthService {
       })
       .pipe(
         map((responseData) => {
-          return new UserLogin(responseData.username, responseData.token);
+          return new UserData(responseData.username, responseData.token);
         }),
         catchError((errorData) => this.errorHandler(errorData))
       );

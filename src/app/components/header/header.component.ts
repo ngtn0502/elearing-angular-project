@@ -1,21 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UiServices } from '../../core/services/ui.service';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import { filter } from 'rxjs/operators';
-import * as fromApp from '../../store/app.reducer';
-import * as UIActions from '../../store/ui/ui.action';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as CourseActions from '../../store/course/course.action';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserLogin } from 'src/app/core/shared/userLogin.model';
-import Swal from 'sweetalert2';
-import { getUserData } from 'src/app/core/shared/functions/helpers';
+import { UserData } from 'src/app/core/shared/userData.model';
 
+import * as AuthActions from '../../store/auth/auth.action';
+import * as UIActions from '../../store/ui/ui.action';
+import * as fromApp from '../../store/app.reducer';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,7 +18,7 @@ export class HeaderComponent implements OnInit {
   isValid: boolean = true;
 
   isLogin: boolean = false;
-  userLogin: UserLogin = { username: '', accessToken: '' };
+  userData: UserData | null = { username: '', accessToken: '' };
 
   constructor(private router: Router, private store: Store<fromApp.AppState>) {}
 
@@ -39,10 +30,10 @@ export class HeaderComponent implements OnInit {
       ]),
     });
 
-    if (getUserData()) {
-      this.userLogin = getUserData();
-      this.isLogin = true;
-    }
+    this.store.select('auth').subscribe((authState) => {
+      this.isLogin = authState.isLogin;
+      this.userData = authState.UserData;
+    });
   }
 
   onAddNewCourse() {
@@ -73,14 +64,7 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.isLogin = false;
-    localStorage.clear();
-    this.router.navigate(['/']);
-    Swal.fire({
-      title: 'Logout successfully!',
-      icon: 'success',
-      showCancelButton: false,
-      confirmButtonText: 'Okay!',
-    });
+    this.store.dispatch(new AuthActions.LogoutAction());
   }
 
   public noWhitespaceValidator(control: FormControl) {

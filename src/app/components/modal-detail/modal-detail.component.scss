@@ -52,3 +52,11 @@ option.ng-invalid {
 .new.ng-untouched {
   border: 1px solid red;
 }
+
+.d-flex2 {
+  display: flex;
+  gap: 1rem;
+  & > * {
+    width: 50%;
+  }
+}

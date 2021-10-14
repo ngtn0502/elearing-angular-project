@@ -24,3 +24,19 @@ export class AuthGuard implements CanActivate {
     return !getUserData();
   }
 }
+
+@Injectable({ providedIn: 'root' })
+export class TokenGuard implements CanActivate {
+  constructor(private router: Router) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    router: RouterStateSnapshot
+  ): boolean | Promise<boolean> | Observable<boolean> | UrlTree {
+    if (!getUserData()) {
+      return this.router.createUrlTree(['/']);
+    }
+
+    return !!getUserData();
+  }
+}
