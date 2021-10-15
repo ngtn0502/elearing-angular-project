@@ -21,11 +21,5 @@
       </button>
     </div>
   </div>
-
-  <!-- For Add New Course-->
-  <div *ngIf="modalType == 'new'">
-    <app-modal-detail></app-modal-detail>
-  </div>
-  <!--  -->
 </div>
 <div class="overlay" *ngIf="isModalOpen" (click)="onCloseModel()"></div>

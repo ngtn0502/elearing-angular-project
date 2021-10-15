@@ -1,12 +1,13 @@
+@import "../../../scss/variable";
+@import "../../../scss/mixin";
+
 .subheader {
   padding: 2rem 20rem 2rem 2rem;
-  // background: linear-gradient(
-  //   135deg,
-  //   rgb(10, 10, 10) 10%,
-  //   rgb(300, 300, 300) 120%
-  // );
   background-color: #000;
   color: #fff;
+  @include respond(tab-port) {
+    padding-right: 2rem;
+  }
   p {
     padding: 1rem 0;
   }

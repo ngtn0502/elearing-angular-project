@@ -20,6 +20,7 @@ export class AddPageComponent implements OnInit {
   isFormValid: boolean = false;
   categories: Category[] = [];
   typeModal: string = '';
+
   constructor(private store: Store<AppState>, private router: Router) {
     this.course = CourseObj;
   }

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as CourseActions from '../../store/course/course.action';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -16,6 +17,7 @@ export class CoursesComponent implements OnInit {
   course: Course;
   isLoading: boolean = false;
   isLogin: boolean = false;
+
   // For Searching
   isSearch: boolean = false;
   searchQuery: any = '';
@@ -24,6 +26,7 @@ export class CoursesComponent implements OnInit {
   // For sorting
   criteria: string = '';
   filterForm: FormGroup = new FormGroup({});
+  private subscriptions = new Subscription();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,12 +36,12 @@ export class CoursesComponent implements OnInit {
     this.filterForm = new FormGroup({
       filterCri: new FormControl(null),
     });
+
     this.filterForm.controls['filterCri'].setValue('default');
   }
 
   ngOnInit(): void {
     this.searching();
-    // this.pagination();
     if (this.courses.length === 0) {
       this.getCoursesFromState();
     }
@@ -64,7 +67,7 @@ export class CoursesComponent implements OnInit {
 
   // Handle searching functionality
   searching() {
-    this.activatedRoute.url.subscribe((url) => {
+    this.subscriptions = this.activatedRoute.url.subscribe((url) => {
       if (!url[1]) return;
       if (url[1].path === 'search') {
         this.isSearch = true;
@@ -81,6 +84,7 @@ export class CoursesComponent implements OnInit {
 
   filterCoursesByCriteria(criteria: string) {
     const filteredCourses = [...this.courses];
+    // By Name
     if (criteria === 'az') {
       filteredCourses.sort((a, b) => a.name.localeCompare(b.name));
       this.courses = filteredCourses;
@@ -89,6 +93,7 @@ export class CoursesComponent implements OnInit {
       filteredCourses.sort((a, b) => b.name.localeCompare(a.name));
       this.courses = filteredCourses;
     }
+    // By Price
     if (criteria === 'lowest') {
       filteredCourses.sort((a, b) => a.price - b.price);
       this.courses = filteredCourses;
@@ -97,5 +102,9 @@ export class CoursesComponent implements OnInit {
       filteredCourses.sort((a, b) => b.price - a.price);
       this.courses = filteredCourses;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

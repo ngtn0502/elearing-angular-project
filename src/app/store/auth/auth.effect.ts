@@ -39,7 +39,7 @@ export class AuthEffect {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.LOGIN_SUCCESS),
-        tap((action) => {
+        tap(() => {
           Swal.fire({
             title: 'Login successfully!',
             icon: 'success',

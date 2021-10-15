@@ -26,7 +26,6 @@ export class LoginPageComponent implements OnInit {
   subscription: Subscription = new Subscription();
 
   constructor(
-    private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private store: Store<AppState>

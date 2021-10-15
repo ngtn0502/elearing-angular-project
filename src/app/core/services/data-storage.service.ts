@@ -12,11 +12,6 @@ import { apiURL, CategoryApiURL } from '../config/config';
 export class DataStorageService {
   constructor(private http: HttpClient) {}
 
-  //   postData() {
-  //     this.http.put(apiURL, this.recipeService.getRecipe()).subscribe((data) => {
-  //     });
-  //   }
-
   postCourses(form: any) {
     let newForm = {
       Name: form.name,

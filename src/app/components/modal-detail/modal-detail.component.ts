@@ -18,6 +18,7 @@ export class ModalDetailComponent implements OnInit {
   isFormValid: boolean = false;
   categories: Category[] = [];
   typeModal: string = '';
+
   constructor(private store: Store<fromApp.AppState>) {
     this.course = CourseObj;
   }
@@ -26,6 +27,7 @@ export class ModalDetailComponent implements OnInit {
     this.store.select('categories').subscribe((categoryState) => {
       this.categories = categoryState.categories.filter((el) => el.id !== 0);
     });
+
     this.store.select('ui').subscribe((UIState) => {
       this.typeModal = UIState.modalType;
       this.store.select('courses').subscribe((coursesState) => {

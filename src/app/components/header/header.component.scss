@@ -19,8 +19,6 @@
 
   .header-search {
     display: flex;
-    // gap: 5rem;
-    // flex-basis: 70%;
     position: relative;
     @include respond(phone) {
       display: block;
@@ -44,9 +42,6 @@
         margin: 1rem 0;
         max-width: 60%;
       }
-      // @include respond(tab-port) {
-      //   width: 30%;
-      // }
       .btn-outline-dark {
         white-space: nowrap;
       }
@@ -90,9 +85,6 @@
     &__btn {
       outline: none;
       border: none;
-      // position: absolute;
-      // top: 0.25rem;
-      // right: 40%;
       font-size: 1.25rem;
       border-radius: 500px;
       &:hover,

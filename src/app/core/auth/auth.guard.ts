@@ -13,10 +13,7 @@ import { getUserData } from 'src/app/core/shared/functions/helpers';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    router: RouterStateSnapshot
-  ): boolean | Promise<boolean> | Observable<boolean> | UrlTree {
+  canActivate(): boolean | Promise<boolean> | Observable<boolean> | UrlTree {
     if (getUserData()) {
       return this.router.createUrlTree(['/']);
     }

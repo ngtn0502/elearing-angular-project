@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit {
       }, 3000);
       return;
     }
+
     if (this.searchForm.value.search.trim().length === 0) {
       this.router.navigate(['/']);
       return;
@@ -67,6 +68,7 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(new AuthActions.LogoutAction());
   }
 
+  // Remove all whitespace
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;

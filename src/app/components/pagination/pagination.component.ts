@@ -17,7 +17,7 @@ export class PaginationComponent implements OnInit {
   id: number = 0;
   isOnSearchPage: boolean = false;
   query: string = '';
-  // For handle pagination
+  // Props for handle pagination purpose
   pageArray: any[] = [1, 2, 3, 4];
   currentPage: number = 1;
   pageSize: number = PAGESIZE;
@@ -29,6 +29,7 @@ export class PaginationComponent implements OnInit {
   //
   private subscriptions = new Subscription();
   private subscriptionsForChangeCategory = new Subscription();
+  private subscriptionsForResetPagination = new Subscription();
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -37,21 +38,21 @@ export class PaginationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Logic for creating pagination bar in front end
-
+    // Logic for creating pagination bar in client side
     this.subscriptionsForChangeCategory = this.activatedRoute.params.subscribe(
-      (data) => {
+      () => {
         this.resetPagination();
       }
     );
 
-    this.activatedRoute.queryParams.subscribe((data) => {
-      this.isOnSearchPage = !!data['query'];
-      this.query = data['query'];
-      if (this.isOnSearchPage) {
-        this.resetPagination();
-      }
-    });
+    this.subscriptionsForResetPagination =
+      this.activatedRoute.queryParams.subscribe((data) => {
+        this.isOnSearchPage = !!data['query'];
+        this.query = data['query'];
+        if (this.isOnSearchPage) {
+          this.resetPagination();
+        }
+      });
 
     this.store.select('courses').subscribe((coursesState) => {
       this.totalPage = Math.ceil(coursesState.totalRecords / this.pageSize);
@@ -106,6 +107,7 @@ export class PaginationComponent implements OnInit {
   }
 
   getCoursesByPage() {
+    // When we in search page
     if (this.isOnSearchPage) {
       this.store.dispatch(
         new CourseActions.SearchCoursesAction({
@@ -114,6 +116,7 @@ export class PaginationComponent implements OnInit {
           pageSize: this.pageSize,
         })
       );
+      // When we in category page
     } else {
       this.subscriptions = this.activatedRoute.url.subscribe((url) => {
         if (url[1]) {
@@ -146,5 +149,6 @@ export class PaginationComponent implements OnInit {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
     this.subscriptionsForChangeCategory.unsubscribe();
+    this.subscriptionsForResetPagination.unsubscribe();
   }
 }

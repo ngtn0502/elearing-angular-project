@@ -8,7 +8,7 @@
   }
 
   &:hover {
-    transform: translateY(-0.25rem);
+    transform: translateY(-0.25rem) scale(1.01);
     box-shadow: 0 2px 22px -1px rgb(0 0 0 / 30%);
   }
   img {

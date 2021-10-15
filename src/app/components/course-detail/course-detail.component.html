@@ -14,10 +14,6 @@
       Created by <span class="text-purple-light">{{ course.instructor }}</span>
     </div>
     <div class="course-detail__languages">
-      <!-- <span>
-        <i class="bi bi-patch-exclamation"></i>
-        Last updated 8/2021
-      </span> -->
       <span
         ><i class="bi bi-globe"></i>
         {{ course.language }}
@@ -41,6 +37,7 @@
       </button>
     </div>
   </div>
+
   <div class="course-detail__card">
     <img [src]="course.imageUrl" alt="" />
     <div class="course-detail__card-bottom">
