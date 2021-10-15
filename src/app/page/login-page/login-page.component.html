@@ -29,7 +29,8 @@
           id="passwordHelpBlock"
           class="form-text text-muted"
           *ngIf="
-            loginForm.get('username')?.touched &&
+            (loginForm.get('username')?.touched ||
+              loginForm.get('username')?.dirty) &&
             loginForm.get('username')?.status === 'INVALID'
           "
         >

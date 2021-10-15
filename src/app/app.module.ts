@@ -36,10 +36,26 @@ import { AddPageComponent } from './page/add-page/add-page.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'category/0', pathMatch: 'full' },
-  { path: 'course/search', component: SearchpageComponent },
-  { path: 'course/page', component: HomepageComponent },
-  { path: 'category/:id', component: HomepageComponent },
-  { path: 'products/:id', component: CourseDetailPageComponent },
+  {
+    path: 'course/search',
+    component: SearchpageComponent,
+    canActivate: [TokenGuard],
+  },
+  {
+    path: 'course/page',
+    component: HomepageComponent,
+    canActivate: [TokenGuard],
+  },
+  {
+    path: 'category/:id',
+    component: HomepageComponent,
+    canActivate: [TokenGuard],
+  },
+  {
+    path: 'products/:id',
+    component: CourseDetailPageComponent,
+    canActivate: [TokenGuard],
+  },
   { path: 'new', component: AddPageComponent, canActivate: [TokenGuard] },
   { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SigngupPageComponent, canActivate: [AuthGuard] },

@@ -144,6 +144,7 @@ label {
   }
 }
 
+input.ng-dirty.ng-invalid,
 input.ng-touched.ng-invalid {
   border-bottom: 1px solid red;
 }

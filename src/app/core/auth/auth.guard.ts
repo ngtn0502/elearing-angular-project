@@ -31,7 +31,7 @@ export class TokenGuard implements CanActivate {
     router: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean> | UrlTree {
     if (!getUserData()) {
-      return this.router.createUrlTree(['/']);
+      return this.router.createUrlTree(['/login']);
     }
 
     return !!getUserData();

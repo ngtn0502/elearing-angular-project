@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserData } from 'src/app/core/shared/userData.model';
@@ -7,24 +7,37 @@ import { UserData } from 'src/app/core/shared/userData.model';
 import * as AuthActions from '../../store/auth/auth.action';
 import * as UIActions from '../../store/ui/ui.action';
 import * as fromApp from '../../store/app.reducer';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isOnEditPage: Boolean = false;
   searchForm: FormGroup = new FormGroup({});
   isValid: boolean = true;
+  query: string = '';
 
   isLogin: boolean = false;
   userData: UserData | null = { username: '', accessToken: '' };
 
-  constructor(private router: Router, private store: Store<fromApp.AppState>) {}
+  routeSubscription: Subscription = new Subscription();
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private store: Store<fromApp.AppState>
+  ) {}
 
   ngOnInit(): void {
+    this.routeSubscription = this.activatedRoute.queryParams.subscribe(
+      (queryParams) => {
+        this.query = queryParams.query;
+      }
+    );
+
     this.searchForm = new FormGroup({
-      search: new FormControl('', [
+      search: new FormControl(this.query, [
         Validators.required,
         this.noWhitespaceValidator,
       ]),
@@ -66,6 +79,7 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.isLogin = false;
     this.store.dispatch(new AuthActions.LogoutAction());
+    this.router.navigate(['/login']);
   }
 
   // Remove all whitespace
@@ -73,5 +87,9 @@ export class HeaderComponent implements OnInit {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { whitespace: true };
+  }
+
+  ngOnDestroy() {
+    this.routeSubscription.unsubscribe();
   }
 }

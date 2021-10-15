@@ -30,7 +30,7 @@
         id="passwordHelpBlock"
         class="form-text text-muted"
         *ngIf="
-          signup.get('username')?.touched &&
+          (signup.get('username')?.touched || signup.get('username')?.dirty) &&
           signup.get('username')?.status === 'INVALID'
         "
       >
