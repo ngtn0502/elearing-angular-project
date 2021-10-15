@@ -1,11 +1,7 @@
 <section class="login">
   <div class="login__left">
     <a class="login__logo" [routerLink]="['']">
-      <img
-        src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
-        alt=""
-      />
-      <span>Fake Version</span>
+      <img src="./assets/img/header_logo.png" alt="" />
     </a>
     <form
       action=""
@@ -38,6 +34,7 @@
           maximum length of 8
         </small>
       </div>
+
       <div class="form-group">
         <label for="password">Password</label>
         <input
@@ -48,7 +45,19 @@
           placeholder="********"
           formControlName="password"
         />
+        <small
+          id="passwordHelpBlock"
+          class="form-text text-muted"
+          *ngIf="
+            (loginForm.get('password')?.touched ||
+              loginForm.get('password')?.dirty) &&
+            loginForm.get('password')?.status === 'INVALID'
+          "
+        >
+          The field Password must be a string with a minimum length of 4
+        </small>
       </div>
+
       <button
         type="submit"
         class="btn btn-outline-dark btn-dark2"

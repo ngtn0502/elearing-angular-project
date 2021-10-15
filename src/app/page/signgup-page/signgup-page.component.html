@@ -1,12 +1,10 @@
 <div class="signup__container">
   <div class="container__child signup__thumbnail">
     <div class="thumbnail__logo">
-      <a [routerLink]="['/']" class="logo__text"
-        >Udemy <span>Fake Version</span>
-      </a>
+      <a [routerLink]="['/']" class="logo__text">EduHash </a>
     </div>
     <div class="thumbnail__content text-center">
-      <h1 class="heading--primary">Welcome to Udemy fake version.</h1>
+      <h1 class="heading--primary">Welcome to EduHash</h1>
       <h2 class="heading--secondary">Are you ready to learning?</h2>
     </div>
 
@@ -47,6 +45,17 @@
           placeholder="********"
           formControlName="password"
         />
+        <small
+          id="passwordHelpBlock"
+          class="form-text text-muted"
+          *ngIf="
+            (signup.get('password')?.touched ||
+              signup.get('password')?.dirty) &&
+            signup.get('password')?.status === 'INVALID'
+          "
+        >
+          The field Password must be a string with a minimum length of 4
+        </small>
       </div>
       <div class="form-group">
         <label for="passwordRepeat">Repeat Password</label>
@@ -58,6 +67,17 @@
           placeholder="********"
           formControlName="repeatPassword"
         />
+        <small
+          id="passwordHelpBlock"
+          class="form-text text-muted"
+          *ngIf="
+            (signup.get('repeatPassword')?.touched ||
+              signup.get('repeatPassword')?.dirty) &&
+            signup.get('repeatPassword')?.status === 'INVALID'
+          "
+        >
+          The field Repeat Password must be a string with a minimum length of 4
+        </small>
       </div>
       <div class="m-t-lg">
         <button
