@@ -69,9 +69,13 @@ export class DataStorageService {
     return this.http.delete(`${apiURL}/${id}`);
   }
 
-  searchCourse(query: any) {
-    const searchQuery = query.replace(/ /g, '');
-
+  searchCourse(data: any) {
+    const searchQuery = data.query.replace(/ /g, '');
+    if (data.pageNumber) {
+      return this.http.get(
+        `${apiURL}/search?query=${searchQuery}&pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`
+      );
+    }
     return this.http.get(`${apiURL}/search?query=${searchQuery}`);
   }
 

@@ -6,6 +6,7 @@ import * as CourseActions from '../../store/course/course.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as UIAction from '../../store/ui/ui.action';
+import { PAGESIZE } from 'src/app/core/config/config';
 
 @Component({
   selector: 'app-pagination',
@@ -14,16 +15,18 @@ import * as UIAction from '../../store/ui/ui.action';
 })
 export class PaginationComponent implements OnInit {
   id: number = 0;
+  isOnSearchPage: boolean = false;
+  query: string = '';
   // For handle pagination
   pageArray: any[] = [1, 2, 3, 4];
   currentPage: number = 1;
-  pageSize: number = 3;
+  pageSize: number = PAGESIZE;
   totalPage: number = 0;
   pageNumberLimit: number = 5;
   maxPageNumberLimit: number = 5;
   minPageNumberLimit: number = 0;
   pageLength: number = 0;
-
+  //
   private subscriptions = new Subscription();
   private subscriptionsForChangeCategory = new Subscription();
 
@@ -37,12 +40,19 @@ export class PaginationComponent implements OnInit {
     // Logic for creating pagination bar in front end
 
     this.subscriptionsForChangeCategory = this.activatedRoute.params.subscribe(
-      () => {
-        this.maxPageNumberLimit = 5;
-        this.minPageNumberLimit = 0;
-        this.currentPage = 1;
+      (data) => {
+        this.resetPagination();
       }
     );
+
+    this.activatedRoute.queryParams.subscribe((data) => {
+      this.isOnSearchPage = !!data['query'];
+      this.query = data['query'];
+      if (this.isOnSearchPage) {
+        this.resetPagination();
+      }
+    });
+
     this.store.select('courses').subscribe((coursesState) => {
       this.totalPage = Math.ceil(coursesState.totalRecords / this.pageSize);
 
@@ -50,14 +60,12 @@ export class PaginationComponent implements OnInit {
       for (let i = 1; i <= this.totalPage; i++) {
         this.pageArray.push(i);
       }
-      console.log(this.pageArray, 'first');
 
       this.pageLength = this.pageArray.length;
       this.pageArray = this.pageArray.filter(
         (number) =>
           number <= this.maxPageNumberLimit && number > this.minPageNumberLimit
       );
-      console.log(this.pageArray, 'second');
     });
   }
 
@@ -98,29 +106,41 @@ export class PaginationComponent implements OnInit {
   }
 
   getCoursesByPage() {
-    this.subscriptions = this.activatedRoute.url.subscribe((url) => {
-      if (url[1]) {
-        if (Number(url[1].path) !== this.id) {
-          this.currentPage = 1;
-          this.pageSize = 3;
-        }
-        this.id = Number(url[1].path);
-      }
-      this.router.navigate(['/category', this.id], {
-        queryParams: {
+    if (this.isOnSearchPage) {
+      this.store.dispatch(
+        new CourseActions.SearchCoursesAction({
+          query: this.query,
           pageNumber: this.currentPage,
           pageSize: this.pageSize,
-        },
+        })
+      );
+    } else {
+      this.subscriptions = this.activatedRoute.url.subscribe((url) => {
+        if (url[1]) {
+          this.id = Number(url[1].path);
+        }
+        this.router.navigate(['/category', this.id], {
+          queryParams: {
+            pageNumber: this.currentPage,
+            pageSize: this.pageSize,
+          },
+        });
       });
-    });
 
-    this.store.dispatch(
-      new CourseActions.PaginationCoursesAction({
-        id: Number(this.id),
-        pageNumber: this.currentPage,
-        pageSize: this.pageSize,
-      })
-    );
+      this.store.dispatch(
+        new CourseActions.PaginationCoursesAction({
+          id: Number(this.id),
+          pageNumber: this.currentPage,
+          pageSize: this.pageSize,
+        })
+      );
+    }
+  }
+
+  resetPagination() {
+    this.maxPageNumberLimit = 5;
+    this.minPageNumberLimit = 0;
+    this.currentPage = 1;
   }
 
   ngOnDestroy() {

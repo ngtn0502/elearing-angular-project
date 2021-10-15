@@ -23,7 +23,19 @@
           id="username"
           placeholder="Username"
           formControlName="username"
+          autocomplete="off"
         />
+        <small
+          id="passwordHelpBlock"
+          class="form-text text-muted"
+          *ngIf="
+            loginForm.get('username')?.touched &&
+            loginForm.get('username')?.status === 'INVALID'
+          "
+        >
+          The field Username must be a string with a minimum length of 3 and a
+          maximum length of 8
+        </small>
       </div>
       <div class="form-group">
         <label for="password">Password</label>

@@ -7,6 +7,7 @@ import * as UIActions from '../../store/ui/ui.action';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { PAGESIZE } from 'src/app/core/config/config';
 
 @Component({
   selector: 'app-category',
@@ -17,7 +18,7 @@ export class CategoryComponent implements OnInit {
   categories: Category[] = [];
   chosenID: number = 0;
   isShowCategory: boolean = true;
-
+  pageSize: number = PAGESIZE;
   private subscriptions = new Subscription();
 
   constructor(

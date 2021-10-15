@@ -143,7 +143,9 @@ export function CourseReducer(
     return {
       ...state,
       isLoading: false,
-      courses: [...action.payload],
+      courses: [...action.payload.products],
+      totalRecords: action.payload.totalRecords,
+      pageNumber: action.payload.pageNumber,
     };
   }
 

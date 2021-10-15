@@ -18,7 +18,8 @@ export class SigngupPageComponent implements OnInit {
     this.signup = new FormGroup({
       username: new FormControl(null, [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(3),
+        Validators.maxLength(8),
       ]),
       password: new FormControl(null, [
         Validators.required,
@@ -71,10 +72,10 @@ export class SigngupPageComponent implements OnInit {
         this.signup.reset();
       },
       (errorMessage) => {
-        console.log(errorMessage);
+        const err = errorMessage.errors.title;
         Swal.fire({
           title: 'Something wrong here!',
-          text: errorMessage,
+          text: err,
           icon: 'error',
           showCancelButton: true,
           confirmButtonText: 'Try again!',

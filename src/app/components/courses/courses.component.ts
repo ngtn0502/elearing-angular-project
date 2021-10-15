@@ -20,6 +20,7 @@ export class CoursesComponent implements OnInit {
   isSearch: boolean = false;
   searchQuery: any = '';
   searchResultLLength: number = 0;
+
   // For sorting
   criteria: string = '';
   filterForm: FormGroup = new FormGroup({});
@@ -57,7 +58,7 @@ export class CoursesComponent implements OnInit {
       this.isLoading = coursesState.isLoading;
       this.courses = coursesState.courses;
       this.filterCoursesByCriteria(this.criteria);
-      this.searchResultLLength = coursesState.courses.length;
+      this.searchResultLLength = coursesState.totalRecords;
     });
   }
 
@@ -70,7 +71,7 @@ export class CoursesComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe((params) => {
           this.searchQuery = params.query;
           this.store.dispatch(
-            new CourseActions.SearchCoursesAction(this.searchQuery)
+            new CourseActions.SearchCoursesAction({ query: this.searchQuery })
           );
           this.getCoursesFromState();
         });

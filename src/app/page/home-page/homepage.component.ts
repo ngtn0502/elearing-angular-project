@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as CourseActions from '../../store/course/course.action';
 import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 
@@ -9,7 +8,9 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
-  constructor() {}
+  isLoading: boolean = false;
+
+  constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {}
 }
