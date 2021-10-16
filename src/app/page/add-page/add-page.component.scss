@@ -11,8 +11,9 @@
 
 .edit {
   max-width: 700px;
-  min-height: 59vh;
+  min-height: 65vh;
   display: flex;
+  margin-top: 1rem;
   flex-direction: column;
   justify-content: center;
   &__form {
@@ -63,4 +64,8 @@ option.ng-invalid {
   & > * {
     width: 50%;
   }
+}
+
+label {
+  margin-bottom: 5px;
 }

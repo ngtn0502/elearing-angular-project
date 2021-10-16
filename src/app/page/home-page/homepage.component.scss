@@ -4,6 +4,9 @@
 .courses {
   height: 60rem;
   @include respond(tab-port) {
-    height: 80rem;
+    height: 65rem;
+  }
+  @include respond(phone) {
+    height: 90rem;
   }
 }
