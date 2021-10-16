@@ -1,3 +1,9 @@
+.addNew {
+  width: 10rem;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
 .form-group {
   margin-bottom: 0.5rem;
 }
@@ -13,7 +19,7 @@
   max-width: 700px;
   min-height: 65vh;
   display: flex;
-  margin-top: 1rem;
+  margin-top: -1rem;
   flex-direction: column;
   justify-content: center;
   &__form {

@@ -10,7 +10,7 @@
   background-color: #fff !important;
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
   @include respond(phone) {
-    display: block;
+    flex-wrap: wrap;
   }
 
   &-logo {
@@ -21,7 +21,7 @@
     display: flex;
     position: relative;
     @include respond(phone) {
-      display: block;
+      // display: block;
       margin: 1rem 0;
     }
     .d-flex {
@@ -41,6 +41,9 @@
       @include respond(tab-land) {
         margin: 1rem 0;
         max-width: 60%;
+      }
+      @include respond(phone) {
+        display: none;
       }
       .btn-outline-dark {
         white-space: nowrap;
@@ -119,6 +122,7 @@
     }
     span {
       position: relative;
+      align-self: baseline;
       &::after {
         content: "";
         position: absolute;
@@ -132,6 +136,7 @@
     button {
       font-size: 0.8rem;
       border: none;
+      align-self: baseline;
       &:hover,
       &:active,
       &:focus {

@@ -17,11 +17,16 @@ a,
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 50rem;
+  max-width: 50rem;
   height: 35rem;
   border-radius: 3px;
   box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.25);
+  @include respond(phone) {
+    display: block;
+    overflow: visible;
+    position: relative;
+    transform: translateY(0);
+  }
 }
 .signup__overlay {
   position: absolute;
@@ -35,6 +40,10 @@ a,
   width: 50%;
   height: 100%;
   color: #fff;
+  @include respond(phone) {
+    width: 100%;
+    height: 85%;
+  }
 }
 .signup__thumbnail {
   position: relative;
@@ -42,10 +51,13 @@ a,
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  background: url(./assets/img/signuppage.jpg);
+  background: url(../../../assets/img/signuppage.jpg);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
+  @include respond(phone) {
+    justify-content: center;
+  }
 }
 .thumbnail__logo,
 .thumbnail__content,
@@ -97,13 +109,12 @@ h2 {
   }
 }
 
-.form-group {
-  margin-top: 1rem;
-}
-
 .signup__form {
   padding: 2.5rem;
   background: #fafafa;
+}
+.form-group {
+  margin-top: 1rem;
 }
 label {
   font-size: 0.85rem;

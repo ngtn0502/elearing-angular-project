@@ -54,7 +54,7 @@ export class AddPageComponent implements OnInit {
       categoryId: new FormControl(null, [Validators.required]),
       imageUrl: new FormControl(null, [
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(15),
       ]),
       instructor: new FormControl(null, [
         Validators.required,

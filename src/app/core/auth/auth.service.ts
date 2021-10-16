@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { authApiURL } from '../config/config';
+import { authBaseURL } from '../config/config';
 import { removeAllWhitespace } from '../shared/functions/helpers';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -20,7 +20,7 @@ export class AuthService {
     const trimmedPassword = removeAllWhitespace(password);
 
     return this.http
-      .post<AuthResponseData>(`${authApiURL}/register`, {
+      .post<AuthResponseData>(`${authBaseURL}/register`, {
         Username: trimmedUsername,
         Password: trimmedPassword,
       })
@@ -32,7 +32,7 @@ export class AuthService {
     const trimmedPassword = removeAllWhitespace(password);
 
     return this.http
-      .post<AuthResponseData>(`${authApiURL}/login`, {
+      .post<AuthResponseData>(`${authBaseURL}/login`, {
         username: trimmedUsername,
         password: trimmedPassword,
       })

@@ -72,7 +72,7 @@ export class SigngupPageComponent implements OnInit {
         this.signup.reset();
       },
       (errorMessage) => {
-        const err = errorMessage.errors.title;
+        const err = errorMessage || 'An unknown error';
         Swal.fire({
           title: 'Something wrong here!',
           text: err,

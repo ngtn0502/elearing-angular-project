@@ -23,6 +23,9 @@
   padding-bottom: 1rem;
   border-bottom: 1px solid #fff;
   cursor: pointer;
+  @include respond(phone) {
+    gap: 1rem;
+  }
   &--active {
     position: relative;
     color: #a435f0;

@@ -33,6 +33,7 @@ import { AuthInterceptorService } from './core/auth/auth-interceptor.service';
 import { AuthGuard, TokenGuard } from './core/auth/auth.guard';
 import { AuthEffect } from './store/auth/auth.effect';
 import { AddPageComponent } from './page/add-page/add-page.component';
+import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'category/0', pathMatch: 'full' },
@@ -59,6 +60,7 @@ const appRoutes: Routes = [
   { path: 'new', component: AddPageComponent, canActivate: [TokenGuard] },
   { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SigngupPageComponent, canActivate: [AuthGuard] },
+  { path: '**', component: NotFoundPageComponent },
 ];
 
 @NgModule({
@@ -81,6 +83,7 @@ const appRoutes: Routes = [
     CourseDetailPageComponent,
     SigngupPageComponent,
     AddPageComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,

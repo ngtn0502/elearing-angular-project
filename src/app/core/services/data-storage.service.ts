@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Data, Router } from '@angular/router';
 import { Course } from './../shared/course.model';
-import { apiURL, CategoryApiURL } from '../config/config';
+import { BaseURL, CategoryBaseURL } from '../config/config';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +10,7 @@ import { apiURL, CategoryApiURL } from '../config/config';
 export class DataStorageService {
   constructor(private http: HttpClient) {}
 
+  // create functionality
   postCourses(form: any) {
     let newForm = {
       Name: form.name,
@@ -24,27 +23,28 @@ export class DataStorageService {
       Language: form.language,
     };
 
-    return this.http.post(apiURL, newForm);
+    return this.http.post(BaseURL, newForm);
   }
 
   fetchCourses() {
-    return this.http.get<Course[]>(apiURL);
+    return this.http.get<Course[]>(BaseURL);
   }
 
   fetchCoursesByPage(id: number, pageNumber: number, pageSize: number) {
     return this.http.get<Course[]>(
-      `${apiURL}/courses?category=${id}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+      `${BaseURL}/courses?category=${id}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
   }
 
   fetchCoursesByCategory(id: number) {
-    return this.http.get<Course[]>(`${apiURL}/courses?category=${id}`);
+    return this.http.get<Course[]>(`${BaseURL}/courses?category=${id}`);
   }
 
   fetchCourseByID(id: number) {
-    return this.http.get<Course>(`${apiURL}/${id}`);
+    return this.http.get<Course>(`${BaseURL}/${id}`);
   }
 
+  // update functionality
   updateCourse(form: any, id: number) {
     let updatedForm = {
       Name: form.name,
@@ -57,26 +57,28 @@ export class DataStorageService {
       Language: form.language,
     };
 
-    return this.http.put(`${apiURL}/edit?query=${id}`, updatedForm);
+    return this.http.put(`${BaseURL}/edit?query=${id}`, updatedForm);
   }
 
+  // delete functionality
   deleteCourse(id: number) {
-    return this.http.delete(`${apiURL}/${id}`);
+    return this.http.delete(`${BaseURL}/${id}`);
   }
 
+  // search functionality
   searchCourse(data: any) {
     const searchQuery = data.query.replace(/ /g, '');
     if (data.pageNumber) {
       return this.http.get(
-        `${apiURL}/search?query=${searchQuery}&pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`
+        `${BaseURL}/search?query=${searchQuery}&pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`
       );
     }
-    return this.http.get(`${apiURL}/search?query=${searchQuery}`);
+    return this.http.get(`${BaseURL}/search?query=${searchQuery}`);
   }
 
   // fetch category data
   fetchCategory() {
-    return this.http.get<any[]>(CategoryApiURL).pipe(
+    return this.http.get<any[]>(CategoryBaseURL).pipe(
       map((category) => {
         const newCategory = category.map((el) => {
           return { id: el.id, name: el.name };

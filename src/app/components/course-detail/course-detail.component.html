@@ -1,5 +1,6 @@
 <section class="course-detail dark-background">
   <div class="course-detail__info">
+    <img [src]="course.imageUrl" alt="" />
     <h1>{{ course.name }}</h1>
     <p>
       {{ course.description }}
@@ -36,6 +37,13 @@
         Gift this course <i class="bi bi-gift"></i>
       </button>
     </div>
+    <div class="course-detail__info-price">
+      <span class="fs-2 fw-bold">${{ course.price }}</span>
+    </div>
+    <div class="course-detail__info-buy">
+      <button class="btn btn-outline-danger">Add to cart</button>
+      <button class="btn btn-outline-light">Buy now</button>
+    </div>
   </div>
 
   <div class="course-detail__card">
@@ -53,7 +61,7 @@
         >
       </div>
       <div class="course-detail__buy">
-        <button class="btn btn-outline-danger">Go to cart</button>
+        <button class="btn btn-outline-danger">Add to cart</button>
         <button class="btn btn-outline-dark">Buy now</button>
       </div>
       <p>30-Day Money-Back Guarantee</p>
