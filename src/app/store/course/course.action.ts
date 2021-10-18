@@ -41,6 +41,11 @@ export const PAGINATION_COURSE = 'PAGINATION_COURSE';
 export const PAGINATION_COURSE_SUCCESS = 'PAGINATION_COURSE_SUCCESS';
 export const PAGINATION_COURSE_ERROR = 'PAGINATION_COURSE_ERROR';
 
+// Select
+export const SELECT_COURSE = 'SELECT_COURSE';
+export const SELECT_COURSE_SUCCESS = 'SELECT_COURSE_SUCCESS';
+export const SELECT_COURSE_ERROR = 'SELECT_COURSE_ERROR';
+
 export class GetCoursesAction implements Action {
   readonly type = 'GET_COURSES';
 }
@@ -145,6 +150,19 @@ export class PaginationCoursesErrorAction implements Action {
   readonly type = 'PAGINATION_COURSE_ERROR';
 }
 
+// Add
+export class SelectCourseAction implements Action {
+  readonly type = 'SELECT_COURSE';
+  constructor(public payload: Course) {}
+}
+export class SelectCourseSuccessAction implements Action {
+  readonly type = 'SELECT_COURSE_SUCCESS';
+  constructor(public payload: any) {}
+}
+export class SelectCourseErrorAction implements Action {
+  readonly type = 'SELECT_COURSE_ERROR';
+}
+
 export type CourseActions =
   | GetCoursesAction
   | GetCoursesSuccessAction
@@ -169,4 +187,7 @@ export type CourseActions =
   | SearchCoursesErrorAction
   | PaginationCoursesAction
   | PaginationCoursesSuccessAction
-  | PaginationCoursesErrorAction;
+  | PaginationCoursesErrorAction
+  | SelectCourseAction
+  | SelectCourseSuccessAction
+  | SelectCourseErrorAction;

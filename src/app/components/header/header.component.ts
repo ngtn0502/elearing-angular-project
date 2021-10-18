@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLogin: boolean = false;
   userData: UserData | null = { username: '', accessToken: '' };
 
+  toggleSearch: boolean = false;
+
   routeSubscription: Subscription = new Subscription();
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -80,6 +82,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLogin = false;
     this.store.dispatch(new AuthActions.LogoutAction());
     this.router.navigate(['/login']);
+  }
+
+  onToggleSearch() {
+    this.toggleSearch = !this.toggleSearch;
   }
 
   // Remove all whitespace

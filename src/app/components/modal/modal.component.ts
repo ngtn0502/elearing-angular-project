@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as CourseActions from '../../store/course/course.action';
 import * as UIActions from '../../store/ui/ui.action';
+import Swal from 'sweetalert2';
+import { Toast } from 'src/app/core/shared/functions/helpers';
 
 @Component({
   selector: 'app-modal',
@@ -31,21 +33,38 @@ export class ModalComponent implements OnInit {
   onCloseModel() {
     this.store.dispatch(new UIActions.CloseModalAction());
   }
-
+  onCloseModelOverlay() {
+    if (this.modalType === 'delete') {
+      this.store.dispatch(new UIActions.CloseModalAction());
+      return;
+    }
+    Swal.fire({
+      title: 'Are you sure to leave editing?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Okay, sure!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch(new UIActions.CloseModalAction());
+      }
+    });
+  }
   //
 
   onDeleteCourse() {
     if (this.id) {
       this.store.dispatch(new CourseActions.DeleteCoursesAction(this.id));
       this.store.dispatch(new UIActions.CloseModalAction());
-      this.store.dispatch(
-        new UIActions.ShowToastAction('Delete Course Successfully')
-      );
+
       this;
     } else {
-      this.store.dispatch(
-        new UIActions.ShowToastAction('Something wrong! Please try again')
-      );
+      Toast.fire({
+        icon: 'success',
+        title: 'Something wrong! Please try again',
+      });
     }
   }
 }

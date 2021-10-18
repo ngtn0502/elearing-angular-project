@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import "~@sweetalert2/themes/dark/dark.scss";
 @import "./scss/variable";
 @import "./scss/mixin";
+
 * {
   margin: 0;
   padding: 0;
@@ -65,11 +67,11 @@ h5 {
 }
 
 .btn-outline-danger {
-  color: #a435f0;
-  border-color: #a435f0;
+  color: $color-purple;
+  border-color: $color-purple;
   &:hover {
     color: #fff;
-    background: #a435f0;
+    background: $color-purple;
   }
 }
 
@@ -114,7 +116,7 @@ label {
 }
 
 .text-purple {
-  color: #a435f0;
+  color: $color-purple;
 }
 .text-purple-light {
   color: #cec0fc;
@@ -125,28 +127,6 @@ a {
   text-decoration: none;
   &:hover {
     color: inherit;
-  }
-}
-
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.7) translate(-50%, -50%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) translate(-50%, -50%);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
   }
 }
 
@@ -179,4 +159,45 @@ a {
   color: red !important;
   display: block;
   font-weight: 500 !important;
+}
+
+img {
+  display: block;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translate(-50%, -50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes lineV {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.swal2-popup.swal2-toast.swal2-icon-success.swal2-show {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
 }

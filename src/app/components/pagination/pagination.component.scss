@@ -1,3 +1,6 @@
+@import "../../../scss/variable";
+@import "../../../scss/mixin";
+
 .container {
   max-width: 600px;
   margin: auto;
@@ -33,12 +36,12 @@
 }
 
 .pagination-2 .page-number:hover {
-  color: #a435f0;
+  color: $color-purple;
 }
 
 .pagination-2 .active {
-  border-bottom: 3px solid #a435f0;
-  color: #a435f0;
+  border-bottom: 3px solid $color-purple;
+  color: $color-purple;
 }
 
 .pagination-2 .active:hover {

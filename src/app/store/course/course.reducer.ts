@@ -8,6 +8,7 @@ export interface State {
   totalRecords: number;
   pageNumber: number;
   isLoading: boolean;
+  selectedCourse: Course[];
 }
 
 const initialState: State = {
@@ -17,6 +18,7 @@ const initialState: State = {
   totalRecords: 0,
   pageNumber: 1,
   isLoading: false,
+  selectedCourse: [],
 };
 
 export function CourseReducer(
@@ -163,6 +165,16 @@ export function CourseReducer(
       courses: [...action.payload.products],
       totalRecords: action.payload.totalRecords,
       pageNumber: action.payload.pageNumber,
+    };
+  }
+
+  //
+  if (action.type === CourseActions.SELECT_COURSE) {
+    const id = state.selectedCourse.find((el) => el.id === action.payload.id);
+    if (id) return { ...state };
+    return {
+      ...state,
+      selectedCourse: [action.payload, ...state.selectedCourse],
     };
   }
 

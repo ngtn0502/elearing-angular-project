@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DataStorageService } from '../../core/services/data-storage.service';
 import * as CourseActions from './course.action';
 import { mergeMap, map } from 'rxjs/operators';
+import { Toast } from 'src/app/core/shared/functions/helpers';
 
 @Injectable()
 export class CourseEffect {
@@ -41,6 +42,10 @@ export class CourseEffect {
       mergeMap((action: CourseActions.CreateCoursesAction) => {
         return this.dataStorageService.postCourses(action.payload).pipe(
           map((courses) => {
+            Toast.fire({
+              icon: 'success',
+              title: 'Create course successfully',
+            });
             return new CourseActions.CreateCoursesSuccessAction(courses);
           })
         );
@@ -57,6 +62,10 @@ export class CourseEffect {
           .updateCourse(action.payload.course, action.payload.id)
           .pipe(
             map((course) => {
+              Toast.fire({
+                icon: 'success',
+                title: 'Update course successfully',
+              });
               return new CourseActions.UpdateCoursesSuccessAction(course);
             })
           );
@@ -71,6 +80,10 @@ export class CourseEffect {
       mergeMap((action: CourseActions.DeleteCoursesAction) => {
         return this.dataStorageService.deleteCourse(action.payload).pipe(
           map((id) => {
+            Toast.fire({
+              icon: 'success',
+              title: 'Delete this course successfully',
+            });
             return new CourseActions.DeleteCoursesSuccessAction(id);
           })
         );

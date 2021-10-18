@@ -6,6 +6,7 @@ import * as fromApp from '../../store/app.reducer';
 import * as UIActions from '../../store/ui/ui.action';
 import { Store } from '@ngrx/store';
 import * as CourseActions from '../../store/course/course.action';
+import { Toast } from 'src/app/core/shared/functions/helpers';
 
 @Component({
   selector: 'app-modal-detail',
@@ -72,6 +73,7 @@ export class ModalDetailComponent implements OnInit {
       language: new FormControl(this.course.language, [
         Validators.required,
         Validators.minLength(3),
+        Validators.pattern('[a-zA-Z]+'),
       ]),
     });
   }
@@ -86,9 +88,6 @@ export class ModalDetailComponent implements OnInit {
         new CourseActions.CreateCoursesAction(this.editForm.value)
       );
       this.store.dispatch(new UIActions.CloseModalAction());
-      this.store.dispatch(
-        new UIActions.ShowToastAction('Create New Course Successfully')
-      );
     } else {
       this.store.dispatch(
         new CourseActions.UpdateCoursesAction({
@@ -97,9 +96,6 @@ export class ModalDetailComponent implements OnInit {
         })
       );
       this.store.dispatch(new UIActions.CloseModalAction());
-      this.store.dispatch(
-        new UIActions.ShowToastAction('Edit Course Successfully')
-      );
     }
   }
 }

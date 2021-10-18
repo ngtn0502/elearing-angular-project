@@ -32,6 +32,10 @@
     </form>
   </div>
 
+  <div class="header-search__toggle">
+    <i class="bi bi-search" (click)="onToggleSearch()"></i>
+  </div>
+
   <div class="header__login" *ngIf="!isLogin">
     <button
       [routerLink]="['/login']"
@@ -54,3 +58,29 @@
     <button class="btn btn-outline-dark" (click)="onLogout()">LOG OUT</button>
   </div>
 </nav>
+
+<div class="header-search__phone" [ngClass]="{ toggleSearch: toggleSearch }">
+  <form
+    class="form-inline header-search__form"
+    [formGroup]="searchForm"
+    (submit)="onSearchCourses()"
+  >
+    <div>
+      <button class="btn btn-outline-dark header-search__btn" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+      <input
+        [ngClass]="{ isValid: !isValid }"
+        class="form-control"
+        type="search"
+        formControlName="search"
+        [placeholder]="
+          isValid ? 'Search For Anything' : 'Empty input is not allowed!'
+        "
+      />
+    </div>
+    <a [routerLink]="['/new']" class="btn btn-outline-dark" *ngIf="isLogin">
+      Add New Course
+    </a>
+  </form>
+</div>

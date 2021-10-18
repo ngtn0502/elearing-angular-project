@@ -6,6 +6,7 @@ import { Course, CourseObj } from '../../core/shared/course.model';
 import * as CourseActions from '../../store/course/course.action';
 import * as fromApp from '../../store/app.reducer';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-detail',
@@ -38,6 +39,19 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
       if (courseState.course.name !== '') {
         this.course = courseState.course;
         this.ratingArray = new Array(courseState.course.rating);
+      }
+    });
+  }
+
+  onSelectCourse() {
+    Swal.fire({
+      title: 'Are you sure to buy this course!',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Okay!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch(new CourseActions.SelectCourseAction(this.course));
       }
     });
   }

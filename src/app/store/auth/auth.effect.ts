@@ -7,7 +7,7 @@ import { UserData } from './../../core/shared/userData.model';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { getUserData } from 'src/app/core/shared/functions/helpers';
+import { getUserData, Toast } from 'src/app/core/shared/functions/helpers';
 
 @Injectable()
 export class AuthEffect {
@@ -41,10 +41,11 @@ export class AuthEffect {
         ofType(AuthActions.LOGIN_SUCCESS),
         tap(() => {
           Swal.fire({
-            title: 'Login successfully!',
+            position: 'center',
             icon: 'success',
-            showCancelButton: false,
-            confirmButtonText: 'Okay!',
+            title: 'Login successfully',
+            showConfirmButton: false,
+            timer: 1000,
           });
           return this.router.navigate(['/']);
         })
@@ -77,11 +78,9 @@ export class AuthEffect {
         tap(() => {
           localStorage.clear();
           this.router.navigate(['/']);
-          Swal.fire({
-            title: 'Logout successfully!',
+          Toast.fire({
             icon: 'success',
-            showCancelButton: false,
-            confirmButtonText: 'Okay!',
+            title: 'Log out successfully',
           });
         })
       ),

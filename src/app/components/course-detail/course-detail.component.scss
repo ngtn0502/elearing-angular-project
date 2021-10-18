@@ -35,13 +35,18 @@
         gap: 1rem;
         & > * {
           flex: 1;
+          font-size: 1.1rem;
+          padding: 0.5rem;
+          &:active {
+            border-color: $color-purple;
+          }
         }
         .btn-outline-danger {
-          background-color: #a435f0;
-          color: #000;
+          background-color: $color-purple;
+          color: #fff;
           &:hover {
             border: inherit;
-            background-color: #a435f0;
+            background-color: $color-purple;
           }
         }
       }
@@ -121,7 +126,7 @@
     }
 
     .btn-outline-danger {
-      background-color: #a435f0;
+      background-color: $color-purple;
       color: #fff;
       &:hover {
         background-color: #8710d8;
@@ -184,12 +189,13 @@
   padding: 1rem 0rem 1rem 1rem;
   width: 50%;
   border: 1px solid rgba(0, 0, 0, 0.3);
+
   @include respond(tab-land) {
     width: 40%;
   }
   @include respond(tab-port) {
     margin: 2rem auto;
-    width: 90%;
+    width: 95%;
     // margin-bottom: 20rem;
   }
   // @include respond(phone) {
@@ -206,6 +212,8 @@
   }
   &__image {
     padding-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
     & > * {
       margin-right: 1rem;
     }

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
-import { removeAllWhitespace } from './../../core/shared/functions/helpers';
+import {
+  removeAllWhitespace,
+  Toast,
+} from './../../core/shared/functions/helpers';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -62,12 +65,9 @@ export class SigngupPageComponent implements OnInit {
         this.router.navigate([`/login`], {
           queryParams: { username: username },
         });
-        Swal.fire({
-          title: 'Signup successfully!',
-          text: 'Please login to continue',
+        Toast.fire({
           icon: 'success',
-          showCancelButton: false,
-          confirmButtonText: 'Okay!',
+          title: 'Signed up successfully',
         });
         this.signup.reset();
       },
