@@ -1,10 +1,15 @@
 <app-header></app-header>
 <div>
   <app-category></app-category>
-  <div class="courses">
+  <div class="courses" *ngIf="!isLoading">
     <app-courses></app-courses>
-    <app-pagination></app-pagination>
   </div>
+
+  <!-- Loading Spinner -->
+  <app-loading *ngIf="isLoading"></app-loading>
+  <div class="loading" *ngIf="isLoading"></div>
+
+  <app-pagination></app-pagination>
   <app-modal></app-modal>
   <app-toast></app-toast>
 </div>

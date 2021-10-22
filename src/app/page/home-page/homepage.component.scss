@@ -2,11 +2,15 @@
 @import "../../../scss/mixin";
 
 .courses {
-  height: 60rem;
+  // height: 60rem;
   @include respond(tab-port) {
-    height: 65rem;
+    // height: 65rem;
   }
   @include respond(phone) {
-    height: 90rem;
+    // height: 90rem;
   }
+}
+
+.loading {
+  height: 100vh;
 }

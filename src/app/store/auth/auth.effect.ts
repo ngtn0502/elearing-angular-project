@@ -44,8 +44,7 @@ export class AuthEffect {
             position: 'center',
             icon: 'success',
             title: 'Login successfully',
-            showConfirmButton: false,
-            timer: 1000,
+            showConfirmButton: true,
           });
           return this.router.navigate(['/']);
         })

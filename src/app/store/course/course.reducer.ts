@@ -92,7 +92,7 @@ export function CourseReducer(
     return {
       ...state,
       isLoading: false,
-      courses: [...state.courses, action.payload],
+      courses: [action.payload, ...state.courses],
     };
   }
 

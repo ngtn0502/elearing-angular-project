@@ -41,6 +41,10 @@ export class AddPageComponent implements OnInit {
         Validators.required,
         Validators.minLength(10),
       ]),
+      detail: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
       rating: new FormControl(null, [
         Validators.required,
         Validators.minLength(1),

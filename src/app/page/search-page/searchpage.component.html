@@ -1,5 +1,10 @@
 <app-header> </app-header>
 <app-courses> </app-courses>
+
+<!-- Loading Spinner -->
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="loading" *ngIf="isLoading"></div>
+
 <app-pagination></app-pagination>
 <div class="mt5">
   <app-footer></app-footer>

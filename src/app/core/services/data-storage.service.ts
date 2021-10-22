@@ -21,6 +21,7 @@ export class DataStorageService {
       Instructor: form.instructor,
       CategoryId: form.categoryId,
       Language: form.language,
+      Detail: form.detail,
     };
 
     return this.http.post(BaseURL, newForm);
@@ -32,12 +33,14 @@ export class DataStorageService {
 
   fetchCoursesByPage(id: number, pageNumber: number, pageSize: number) {
     return this.http.get<Course[]>(
-      `${BaseURL}/courses?category=${id}&pageNumber=${pageNumber}&pageSize=${pageSize}`
+      `${BaseURL}/getpagedproducts?category=${id}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
   }
 
   fetchCoursesByCategory(id: number) {
-    return this.http.get<Course[]>(`${BaseURL}/courses?category=${id}`);
+    return this.http.get<Course[]>(
+      `${BaseURL}/getpagedproducts?category=${id}`
+    );
   }
 
   fetchCourseByID(id: number) {
@@ -55,9 +58,10 @@ export class DataStorageService {
       Instructor: form.instructor,
       CategoryId: form.categoryId,
       Language: form.language,
+      Detail: form.detail,
     };
 
-    return this.http.put(`${BaseURL}/edit?query=${id}`, updatedForm);
+    return this.http.put(`${BaseURL}/updateproduct?query=${id}`, updatedForm);
   }
 
   // delete functionality
@@ -70,10 +74,10 @@ export class DataStorageService {
     const searchQuery = data.query.replace(/ /g, '');
     if (data.pageNumber) {
       return this.http.get(
-        `${BaseURL}/search?query=${searchQuery}&pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`
+        `${BaseURL}/searchproducts?query=${searchQuery}&pageNumber=${data.pageNumber}&pageSize=${data.pageSize}`
       );
     }
-    return this.http.get(`${BaseURL}/search?query=${searchQuery}`);
+    return this.http.get(`${BaseURL}/searchproducts?query=${searchQuery}`);
   }
 
   // fetch category data

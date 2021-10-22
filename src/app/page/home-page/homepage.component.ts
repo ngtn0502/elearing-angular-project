@@ -12,5 +12,9 @@ export class HomepageComponent implements OnInit {
 
   constructor(private store: Store<fromApp.AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.select('courses').subscribe((coursesState) => {
+      this.isLoading = coursesState.isLoading;
+    });
+  }
 }

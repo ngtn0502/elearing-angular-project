@@ -48,6 +48,10 @@ export class ModalDetailComponent implements OnInit {
         Validators.required,
         Validators.minLength(10),
       ]),
+      detail: new FormControl(this.course.detail.detail, [
+        Validators.required,
+        Validators.minLength(10),
+      ]),
       rating: new FormControl(this.course.rating, [
         Validators.required,
         Validators.minLength(1),
@@ -89,6 +93,8 @@ export class ModalDetailComponent implements OnInit {
       );
       this.store.dispatch(new UIActions.CloseModalAction());
     } else {
+      console.log(this.editForm.value);
+
       this.store.dispatch(
         new CourseActions.UpdateCoursesAction({
           course: this.editForm.value,
