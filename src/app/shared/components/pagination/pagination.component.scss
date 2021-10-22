@@ -1,0 +1,71 @@
+@import "../../../../scss/variable";
+@import "../../../../scss/mixin";
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.pagination ul {
+  margin: 2em auto;
+  padding-left: 0;
+  list-style-type: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+  li {
+    cursor: pointer;
+    font-weight: 700;
+  }
+}
+
+.page-number {
+  display: inline;
+}
+
+.page-number a {
+  text-decoration: none;
+  color: black;
+}
+
+/* Pagination 2 */
+.pagination-2 .page-number {
+  padding: 0px 8px;
+}
+
+.pagination-2 .page-number:hover {
+  color: $color-purple;
+}
+
+.pagination-2 .active {
+  border-bottom: 3px solid $color-purple;
+  color: $color-purple;
+}
+
+.pagination-2 .active:hover {
+}
+
+.pagination-2 .active a {
+  color: #f3f4f2;
+}
+
+.prev {
+  display: inline;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: 1px solid #000;
+  border-radius: 100%;
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}

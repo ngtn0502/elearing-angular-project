@@ -1,0 +1,164 @@
+@import "../../../../../scss/variable";
+@import "../../../../../scss/mixin";
+a,
+[type="submit"] {
+  transition: all 0.25s ease-in;
+}
+.signup__container {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  transform: translateY(-50%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 50rem;
+  height: 35rem;
+  border-radius: 3px;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.25);
+  @include respond(phone) {
+    display: block;
+    overflow: visible;
+    position: relative;
+    transform: translateY(0);
+  }
+}
+.signup__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.76);
+}
+.container__child {
+  width: 50%;
+  height: 100%;
+  color: #fff;
+  @include respond(phone) {
+    width: 100%;
+    height: 85%;
+  }
+}
+.signup__thumbnail {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background: url(../../../../../assets/img/signuppage.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  @include respond(phone) {
+    justify-content: center;
+  }
+}
+.thumbnail__logo,
+.thumbnail__content,
+.thumbnail__links {
+  position: relative;
+  z-index: 2;
+}
+.thumbnail__logo {
+  align-self: flex-start;
+}
+.logo__shape {
+  fill: #fff;
+}
+.logo__text {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 700;
+  vertical-align: bottom;
+  color: #fff;
+  span {
+    font-size: 1rem;
+    vertical-align: top;
+  }
+}
+.thumbnail__content {
+  align-self: flex-start;
+}
+h1,
+h2 {
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
+}
+.heading--primary {
+  font-size: 3rem;
+}
+.heading--secondary {
+  font-size: 2rem;
+}
+.thumbnail__links {
+  align-self: flex-end;
+  width: 100%;
+}
+.thumbnail__links a {
+  font-size: 1rem;
+  color: #fff;
+  &:focus,
+  &:hover {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.signup__form {
+  padding: 2.5rem;
+  background: #fafafa;
+}
+.form-group {
+  margin-top: 1rem;
+}
+label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #000;
+}
+.form-control {
+  background-color: transparent;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+  &:focus {
+    border-color: #111;
+  }
+}
+[type="text"] {
+  color: #111;
+}
+[type="password"] {
+  color: #111;
+}
+
+.btn {
+  margin-top: 2rem;
+  width: 100%;
+  &:hover {
+    color: inherit;
+  }
+}
+
+.signup__link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  color: #999;
+  &:focus,
+  &:hover {
+    color: darken(#999, 13%);
+  }
+}
+
+input.ng-dirty.ng-invalid,
+input.ng-touched.ng-invalid {
+  border-bottom: 1px solid red;
+}

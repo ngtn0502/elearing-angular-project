@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import * as fromApp from './store/app.reducer';
-import * as AuthActions from './store/auth/auth.action';
+import * as fromApp from './shared/store/app.reducer';
+import * as AuthActions from './shared/store/auth/auth.action';
 import { Store } from '@ngrx/store';
 
 @Component({

@@ -1,0 +1,221 @@
+@import "../../../../scss/variable";
+@import "../../../../scss/mixin";
+
+.course-detail {
+  padding: 2rem 10rem;
+  color: white;
+  position: relative;
+  @include respond(tab-port) {
+    padding: 2rem;
+  }
+  &__info {
+    max-width: 60%;
+    margin: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    h1 {
+      font-weight: 900;
+    }
+    @include respond(tab-port) {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    img {
+      display: none;
+      @include respond(tab-port) {
+        display: block;
+      }
+    }
+
+    &-buy {
+      display: none;
+      @include respond(tab-port) {
+        display: flex;
+        gap: 1rem;
+        & > * {
+          flex: 1;
+          font-size: 1.1rem;
+          padding: 0.5rem;
+          &:active {
+            border-color: $color-purple;
+          }
+        }
+        .btn-outline-danger {
+          background-color: $color-purple;
+          color: #fff;
+          &:hover {
+            border: inherit;
+            background-color: $color-purple;
+          }
+        }
+      }
+    }
+
+    &-price {
+      display: none;
+      @include respond(tab-port) {
+        display: block;
+      }
+    }
+  }
+
+  &__rating {
+    i {
+      color: #eceb98;
+    }
+    & > * {
+      margin-right: 0.5rem;
+    }
+    span:nth-child(2) {
+      & > * {
+        margin-right: 0.25rem;
+      }
+    }
+  }
+
+  &__instructor {
+  }
+
+  &__languages {
+    & > * {
+      margin-right: 1rem;
+      i {
+        margin-right: 0.25rem;
+      }
+    }
+  }
+
+  &__share {
+    display: flex;
+
+    & > * {
+      margin-right: 0.5rem;
+    }
+    .btn-outline-dark {
+      color: #fff;
+      background-color: transparent;
+      border: 1px solid #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+    }
+  }
+
+  //
+
+  &__card {
+    border: 1px solid #fff;
+    border-bottom: 1px solid #d1d7dc;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 8%);
+    color: black;
+    background-color: #fff;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 20rem;
+    @include respond(tab-port) {
+      display: none;
+    }
+    img {
+      width: 100%;
+      min-height: 10rem;
+    }
+
+    .btn-outline-danger {
+      background-color: $color-purple;
+      color: #fff;
+      &:hover {
+        background-color: #8710d8;
+        border: 1px solid #8710d8;
+      }
+    }
+
+    &-bottom {
+      padding: 1.5rem;
+    }
+    p {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__discount {
+    font-size: 0.8rem;
+    & > * {
+      margin-right: 0.25rem;
+    }
+  }
+
+  &__buy {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    button {
+      font-weight: 900;
+    }
+  }
+  h5 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-top: 0.5rem;
+  }
+  &__includes {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    & > * {
+      font-size: 0.85rem;
+      i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.topcompany {
+  margin: 3rem 0rem 15rem 10rem;
+  padding: 1rem 0rem 1rem 1rem;
+  width: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+
+  @include respond(tab-land) {
+    width: 40%;
+  }
+  @include respond(tab-port) {
+    margin: 2rem auto;
+    width: 95%;
+    // margin-bottom: 20rem;
+  }
+  // @include respond(phone) {
+  //   margin: 0 auto;
+  //   width: 80%;
+  //   margin-bottom: 15rem;
+  // }
+  h3 {
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+  p {
+    padding: 1rem 0;
+  }
+  &__image {
+    padding-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    & > * {
+      margin-right: 1rem;
+    }
+  }
+}
